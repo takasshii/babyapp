@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
+class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          leading: Icon(Icons.chevron_left),
           backgroundColor: Color(0xff181E27),
           title: Text(
             "Edit Profile",
@@ -170,7 +166,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-      ),
+
     );
   }
 }

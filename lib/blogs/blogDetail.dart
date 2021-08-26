@@ -53,6 +53,7 @@ class BlogDetail extends StatelessWidget {
                             ),
                           );
                           if (title != null) {
+                            Navigator.pop(context);
                             final snackBar = SnackBar(
                               backgroundColor: Colors.green,
                               content: Text('$titleを編集しました'),
@@ -60,7 +61,8 @@ class BlogDetail extends StatelessWidget {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           }
-                        }model.fetchBlogList();
+                          model.fetchBlogList();
+                        }
                         if (result == 1) {
                           showConfirmDialog(context, blog, model);
                         }
@@ -209,6 +211,7 @@ class BlogDetail extends StatelessWidget {
               onPressed: () async {
                 // modelで削除
                 await model.delete(blog);
+                Navigator.pop(context);
                 Navigator.pop(context);
                 final snackBar = SnackBar(
                   backgroundColor: Colors.red,

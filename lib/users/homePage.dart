@@ -1,16 +1,8 @@
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
 import 'package:babyapp/blogs/findBlog.dart';
+import 'package:babyapp/users/profilePage.dart';
 import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(home: new HomePage());
-  }
-}
 
 class HomePage extends StatelessWidget {
   @override
@@ -26,7 +18,12 @@ class HomePage extends StatelessWidget {
             child: IconButton(
               icon: Icon(Icons.account_circle),
               iconSize: 30,
-              onPressed: () {}, //ここで設定開く
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => (ProfilePage()))
+                );
+              }, //ここで設定開く
             ),
           ),
           title: Padding(
