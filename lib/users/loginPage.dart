@@ -1,3 +1,4 @@
+import 'package:babyapp/users/addAnotherProfile.dart';
 import 'package:babyapp/users/forgotPassword.dart';
 import 'package:babyapp/users/homePage.dart';
 import 'package:babyapp/users/loginModel.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final nameController = TextEditingController();
     final mailController = TextEditingController();
     final passwordController = TextEditingController();
     return DefaultTabController(
@@ -61,7 +63,7 @@ class LoginPage extends StatelessWidget {
                   create: (_) => LoginModel(),
                   child: Consumer<LoginModel>(builder: (context, model, child) {
                     return Container(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 10),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -181,12 +183,34 @@ class LoginPage extends StatelessWidget {
                   child:
                       Consumer<SignUpModel>(builder: (context, model, child) {
                     return Container(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 10),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Container(
                               padding: EdgeInsets.only(top: 0),
+                              child: TextFormField(
+                                controller: nameController,
+                                onChanged: (text) {
+                                  model.name = text;
+                                },
+                                keyboardType: TextInputType.name,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  fillColor: Colors.black,
+                                  filled: true,
+                                  labelText: 'Name',
+                                  labelStyle: TextStyle(
+                                    color: Color(0x98FFFFFF),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 12),
                               child: TextFormField(
                                 controller: mailController,
                                 onChanged: (text) {
@@ -241,6 +265,7 @@ class LoginPage extends StatelessWidget {
                                   try {
                                     await model.signUp();
                                     _showDialog(context, '登録完了しました');
+                                    // 追加情報に遷移＋サインアップ画面を破棄
                                     await Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                         builder: (context) {

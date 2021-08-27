@@ -3,12 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpModel extends ChangeNotifier {
+  String name = '';
   String mail = '';
   String password = '';
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future signUp() async {
+    if (name.isEmpty) {
+      throw ('名前を入力してください');
+    }
+
     if (mail.isEmpty) {
       throw ('メールアドレスを入力してください');
     }
@@ -25,8 +30,10 @@ class SignUpModel extends ChangeNotifier {
         .user;
     final email = user!.email;
 
+
     FirebaseFirestore.instance.collection('users').add(
       {
+        'name': name,
         'email': email,
         'createdAt': Timestamp.now(),
       },

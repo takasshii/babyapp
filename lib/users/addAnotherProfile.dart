@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 class AddAnotherProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          leading: Icon(Icons.chevron_left),
           backgroundColor: Color(0xff181E27),
           title: Text(
             "Add Baby Profile",
@@ -24,31 +22,14 @@ class AddAnotherProfile extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 130,
-                  width: 130,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.black,
-                    border: Border.all(width: 2),
-                  ),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.add_a_photo_outlined,
-                      size: 70,
-                    ),
-                    color: Color(0x98FFFFFF),
-                    onPressed: () {},
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.only(top: 0),
                   width: double.infinity,
                   child: Text(
                     "赤ちゃんの情報を入力してください",
                     style: TextStyle(
                       color: Color(0x98FFFFFF),
                     ),
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                   ),
                 ),
                 Container(
@@ -116,7 +97,7 @@ class AddAnotherProfile extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: Colors.black,
                       filled: true,
-                      labelText: 'お腹の中にいた週',
+                      labelText: 'お腹の中にいた週(任意)',
                       labelStyle: TextStyle(
                         color: Color(0x98FFFFFF),
                       ),
@@ -134,7 +115,7 @@ class AddAnotherProfile extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: Colors.black,
                       filled: true,
-                      labelText: '生まれた時の体重',
+                      labelText: '生まれた時の体重(任意)',
                       labelStyle: TextStyle(
                         color: Color(0x98FFFFFF),
                       ),
@@ -152,7 +133,7 @@ class AddAnotherProfile extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: Colors.black,
                       filled: true,
-                      labelText: '予防接種の選択をラジオボタンで',
+                      labelText: '予防接種の選択をラジオボタンで(任意)',
                       labelStyle: TextStyle(
                         color: Color(0x98FFFFFF),
                       ),
@@ -169,7 +150,7 @@ class AddAnotherProfile extends StatelessWidget {
                       //todo
                     },
                     child: const Text(
-                      'Send Request Rink',
+                      '完了',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
@@ -186,7 +167,7 @@ class AddAnotherProfile extends StatelessWidget {
             ),
           ),
         ),
-      ),
+
     );
   }
 }
