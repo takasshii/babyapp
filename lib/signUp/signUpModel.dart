@@ -36,6 +36,7 @@ class SignUpModel extends ChangeNotifier {
         'name': name,
         'email': email,
         'createdAt': Timestamp.now(),
+        'uid': FirebaseAuth.instance.currentUser!.uid
       },
     );
   }

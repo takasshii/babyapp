@@ -1,8 +1,8 @@
-import 'package:babyapp/users/addAnotherProfile.dart';
-import 'package:babyapp/users/forgotPassword.dart';
-import 'package:babyapp/users/homePage.dart';
-import 'package:babyapp/users/loginModel.dart';
-import 'package:babyapp/users/signUpModel.dart';
+import 'package:babyapp/addProfile/addAnotherProfile.dart';
+import 'package:babyapp/login/forgotPassword.dart';
+import 'package:babyapp/home/homePage.dart';
+import 'package:babyapp/login/loginModel.dart';
+import 'package:babyapp/signUp/signUpModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -180,8 +180,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 ChangeNotifierProvider<SignUpModel>(
                   create: (_) => SignUpModel(),
-                  child:
-                      Consumer<SignUpModel>(builder: (context, model, child) {
+                  child: Consumer<SignUpModel>(builder: (context, model, child) {
                     return Container(
                       padding: EdgeInsets.only(top: 10),
                       child: SingleChildScrollView(
@@ -269,7 +268,7 @@ class LoginPage extends StatelessWidget {
                                     await Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return HomePage();
+                                          return AddAnotherProfile();
                                         },
                                       ),
                                     );

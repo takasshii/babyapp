@@ -1,6 +1,6 @@
 import 'package:babyapp/auth/authModel.dart';
-import 'package:babyapp/users/homePage.dart';
-import 'package:babyapp/users/loginPage.dart';
+import 'package:babyapp/home/homePage.dart';
+import 'package:babyapp/login/loginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

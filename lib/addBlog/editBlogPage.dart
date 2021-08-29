@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class EditBlogPage extends StatelessWidget {
   EditBlogPage(this.blog);
-
   final Blog blog;
 
   @override

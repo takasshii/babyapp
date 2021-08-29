@@ -35,7 +35,6 @@ class EditBlogModel extends ChangeNotifier {
     return title != null || author != null || content != null;
   }
 
-
   Future update() async {
     this.title = titleController.text;
     this.author = authorController.text;
