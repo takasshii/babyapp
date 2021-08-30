@@ -1,4 +1,4 @@
-import 'package:babyapp/addBlog/addBLogModel.dart';
+import 'package:babyapp/Blog/addBlog/addBLogModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

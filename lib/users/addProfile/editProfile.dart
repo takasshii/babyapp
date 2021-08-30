@@ -1,4 +1,4 @@
-import 'package:babyapp/addProfile/editProfileModel.dart';
+import 'package:babyapp/users/addProfile/editProfileModel.dart';
 import 'package:babyapp/domain/user.dart';
 import 'package:babyapp/users/userModel.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class EditProfile extends StatelessWidget {
   final UserDetail user;
-
   EditProfile(this.user);
 
   @override

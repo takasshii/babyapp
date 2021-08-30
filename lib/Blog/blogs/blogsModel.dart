@@ -23,6 +23,6 @@ class BlogListModel extends ChangeNotifier {
   }
 
   Future delete(Blog blog) {
-    return FirebaseFirestore.instance.collection('books').doc(blog.id).delete();
+    return FirebaseFirestore.instance.collection('blogs').doc(blog.id).delete();
   }
 }

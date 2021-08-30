@@ -1,6 +1,6 @@
-import 'package:babyapp/addBlog/addBlogPage.dart';
-import 'package:babyapp/blogs/blogDetail.dart';
-import 'package:babyapp/blogs/blogsModel.dart';
+import 'package:babyapp/Blog/addBlog/addBlogPage.dart';
+import 'package:babyapp/Blog/blogs/blogDetail.dart';
+import 'package:babyapp/Blog/blogs/blogsModel.dart';
 import 'package:babyapp/domain/blog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +64,7 @@ class FindBlog extends StatelessWidget {
                               builder: (context) => BlogDetail(blog),
                             ),
                           );
+                          model.fetchBlogList();
                         },
                         title: Container(
                           child: Row(
@@ -170,7 +171,6 @@ class FindBlog extends StatelessWidget {
               child: Icon(Icons.add),
             );
           },
-
         ),
       ),
     );

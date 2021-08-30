@@ -1,6 +1,6 @@
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
-import 'package:babyapp/blogs/findBlog.dart';
+import 'package:babyapp/Blog/blogs/findBlog.dart';
 import 'package:babyapp/domain/user.dart';
 import 'package:babyapp/home/homeModel.dart';
 import 'package:babyapp/users/profilePage.dart';

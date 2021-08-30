@@ -1,4 +1,4 @@
-import 'package:babyapp/addProfile/addAnotherProfileModel.dart';
+import 'package:babyapp/users/addProfile/addAnotherProfileModel.dart';
 import 'package:babyapp/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

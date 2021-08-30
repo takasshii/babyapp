@@ -1,5 +1,5 @@
-import 'package:babyapp/blogs/blogsModel.dart';
-import 'package:babyapp/addBlog/editBlogPage.dart';
+import 'package:babyapp/Blog/blogs/blogsModel.dart';
+import 'package:babyapp/Blog/addBlog/editBlogPage.dart';
 import 'package:babyapp/domain/blog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -217,7 +217,6 @@ class BlogDetail extends StatelessWidget {
                   backgroundColor: Colors.red,
                   content: Text('${blog.title}を削除しました'),
                 );
-                model.fetchBlogList();
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
             ),

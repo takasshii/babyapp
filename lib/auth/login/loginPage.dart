@@ -1,8 +1,8 @@
 import 'package:babyapp/addProfile/addAnotherProfile.dart';
-import 'package:babyapp/login/forgotPassword.dart';
+import 'package:babyapp/auth/login/forgotPassword.dart';
 import 'package:babyapp/home/homePage.dart';
-import 'package:babyapp/login/loginModel.dart';
-import 'package:babyapp/signUp/signUpModel.dart';
+import 'package:babyapp/auth/login/loginModel.dart';
+import 'package:babyapp/auth/signUp/signUpModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

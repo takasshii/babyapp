@@ -1,16 +1,12 @@
-import 'package:babyapp/addBlog/editBlogModel.dart';
-import 'package:babyapp/domain/blog.dart';
+import 'package:babyapp/Blog/addBlog/addBLogModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditBlogPage extends StatelessWidget {
-  EditBlogPage(this.blog);
-  final Blog blog;
-
+class AddBlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditBlogModel>(
-      create: (_) => EditBlogModel(blog),
+    return ChangeNotifierProvider<AddBlogModel>(
+      create: (_) => AddBlogModel(),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -41,7 +37,7 @@ class EditBlogPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<EditBlogModel>(
+        body: Consumer<AddBlogModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Container(
@@ -51,9 +47,8 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.titleController,
                         onChanged: (text) {
-                          model.setTitle(text);
+                          model.title = text;
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -73,9 +68,8 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.authorController,
                         onChanged: (text) {
-                          model.setAuthor(text);
+                          model.author = text;
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -95,9 +89,8 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.contentController,
                         onChanged: (text) {
-                          model.setAuthor(text);
+                          model.content = text;
                         },
                         minLines: 10,
                         maxLines: null,
@@ -121,24 +114,21 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 24),
                       child: ElevatedButton(
-                        onPressed: model.isUpdated()
-                            ? () async {
-                                // 追加の処理
-                                try {
-                                  await model.update();
-                                  Navigator.of(context).pop(model.title);
-                                } catch (e) {
-                                  final snackBar = SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(e.toString()),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
-                              }
-                            : null,
+                        onPressed: () async {
+                          try {
+                            await model.addBlog();
+                            Navigator.of(context).pop(true);
+                          } catch (e) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text(e.toString()),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
                         child: const Text(
-                          'Update',
+                          'Create New Blog',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
