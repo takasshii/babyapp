@@ -17,7 +17,7 @@ class AddPlanPage extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "Blog List",
+                "ToDo",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -68,90 +68,122 @@ class AddPlanPage extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: model.startController,
-                            onTap: () {
-                              //ドラムロール式の生年月日選択ができるようにする
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setStart(text);
-                                    model.start = text;
-                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '開始時刻',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: model.endController,
-                            onTap: () {
-                              //ドラムロール式の生年月日選択ができるようにする
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setEnd(text);
-                                    model.end = text;
-                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '終了時刻',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20),
+                            child: TextFormField(
+                              controller: model.startController,
+                              onTap: () {
+                                //ドラムロール式の生年月日選択ができるようにする
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now()
+                                        .add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                  model.setStart(text);
+                                  model.start = text;
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '開始時刻',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            enabled: model.isWritten() ? true : false,
-                            controller: model.notificationController,
-                            onTap: () {
-                              //ドラムロール式で選択
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setNotification(text);
-                                    model.notification = text;
-                                  }, currentTime: model.start, locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '通知時間',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, left: 10),
+                            child: Text(
+                              '~',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                color: Colors.deepOrangeAccent.withOpacity(0.9),
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, left: 10),
+                            child: TextFormField(
+                              controller: model.endController,
+                              onTap: () {
+                                //ドラムロール式の生年月日選択ができるようにする
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now()
+                                        .add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                  model.setEnd(text);
+                                  model.end = text;
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '終了時刻',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, left: 20),
+                            child: TextFormField(
+                              enabled: model.isWritten() && model.start!.isAfter(DateTime.now()) ? true : false,
+                              controller: model.notificationController,
+                              onTap: () {
+                                //ドラムロール式で選択
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: model.start, onConfirm: (text) {
+                                  model.setNotification(text);
+                                  model.notification = text;
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '通知時間',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),

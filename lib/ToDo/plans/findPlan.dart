@@ -19,7 +19,7 @@ class FindPlan extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "Blog List",
+                "ToDo",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -75,7 +75,7 @@ class FindPlan extends StatelessWidget {
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    plan.title!,
+                                    plan.title,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -86,10 +86,8 @@ class FindPlan extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              plan.start != null ? Row(
-                                children: [
-                                  Expanded(
-                                    child: Align(
+                              plan.start != null
+                                  ? Align(
                                       alignment: Alignment.bottomRight,
                                       child: Padding(
                                         padding: const EdgeInsets.only(
@@ -97,43 +95,46 @@ class FindPlan extends StatelessWidget {
                                         child: Text(
                                           '${plan.start!.hour}:${plan.start!.minute}',
                                           style: TextStyle(
-                                              fontSize: 10, color: Colors.white),
+                                              fontSize: 10,
+                                              color: Colors.white),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(
-                                      '~',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Colors.deepOrangeAccent
-                                            .withOpacity(0.9),
+                                    )
+                                  : Container(),
+                              plan.start != null
+                                  ? Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(
+                                        '~',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.deepOrangeAccent
+                                              .withOpacity(0.9),
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Text(
-                                      '${plan.start!.hour}:${plan.start!.minute}',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Colors.deepOrangeAccent
-                                            .withOpacity(0.9),
+                                    )
+                                  : Container(),
+                              plan.end != null
+                                  ? Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Text(
+                                        '${plan.end!.hour}:${plan.end!.minute}',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.deepOrangeAccent
+                                              .withOpacity(0.9),
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
+                                    )
+                                  : Container(),
                               Icon(
                                 Icons.chevron_right_rounded,
                                 color: Color(0x98FFFFFF),
@@ -145,15 +146,17 @@ class FindPlan extends StatelessWidget {
                         subtitle: Padding(
                           padding: const EdgeInsets.only(
                               left: 12, top: 4, right: 12),
-                          child: plan.content != null ? Text(
-                            plan.content!,
-                            style: TextStyle(
-                              color: Color(0x98FFFFFF),
-                              fontSize: 14,
-                            ),
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ): Container(),
+                          child: plan.content != null
+                              ? Text(
+                                  plan.content!,
+                                  style: TextStyle(
+                                    color: Color(0x98FFFFFF),
+                                    fontSize: 14,
+                                  ),
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              : Container(),
                         ),
                       ),
                     ),

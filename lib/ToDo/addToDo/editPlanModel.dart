@@ -7,13 +7,13 @@ class EditPlanModel extends ChangeNotifier {
   final ToDo plan;
 
   EditPlanModel(this.plan) {
-    titleController.text = plan.title!;
-    contentController.text = plan.content!;
+    titleController.text = plan.title;
+    contentController.text = plan.content;
     startController.text = plan.start.toString();
     endController.text = plan.end.toString();
     notificationController.text = plan.notification.toString();
     belongingsController.text = plan.belongings.toString();
-    colorController.text = plan.color!;
+    colorController.text = plan.color;
   }
 
   final titleController = TextEditingController();
@@ -102,9 +102,9 @@ class EditPlanModel extends ChangeNotifier {
     Map<String, dynamic> record = {
       'title': title,
       'content': content,
-      'start': start,
-      'end': end,
-      'notification': notification,
+      'start': start!.toUtc().toIso8601String(),
+      'end': end!.toUtc().toIso8601String(),
+      'notification': notification!.toUtc().toIso8601String(),
       'belongings': belongings,
       'color': color,
     };

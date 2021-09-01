@@ -1,4 +1,4 @@
-import 'package:babyapp/addProfile/addAnotherProfile.dart';
+import 'package:babyapp/users/addProfile/addAnotherProfile.dart';
 import 'package:babyapp/auth/login/forgotPassword.dart';
 import 'package:babyapp/home/homePage.dart';
 import 'package:babyapp/auth/login/loginModel.dart';

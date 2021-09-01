@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart';
 
 class AddPlanModel extends ChangeNotifier {
   String? title;
@@ -16,33 +16,30 @@ class AddPlanModel extends ChangeNotifier {
   final notificationController = TextEditingController();
 
   void setStart(DateTime start) {
-    final year = start.year.toString();
     final month = start.month.toString();
     final day = start.day.toString();
     final hour = start.hour.toString();
     final minute = start.minute.toString();
-    this.startController.text = '$year/$month/$day/$hour/$minute';
-    end != null ? this.endController.text = '$year/$month/$day/$hour/${(start.minute+10).toString()}':this.endController.text = '';
+    this.startController.text = '$month/$day $hour:$minute';
+    end != null ? this.endController.text = '$month/$day $hour:${(start.minute+10).toString()}':this.endController.text = '';
     notifyListeners();
   }
 
   void setEnd(DateTime end) {
-    final year = end.year.toString();
     final month = end.month.toString();
     final day = end.day.toString();
     final hour = end.hour.toString();
     final minute = end.minute.toString();
-    this.endController.text = '$year/$month/$day/$hour/$minute';
+    this.endController.text = '$month/$day $hour:$minute';
     notifyListeners();
   }
 
-  void setNotification(DateTime end) {
-    final year = notification!.year.toString();
-    final month = notification!.month.toString();
-    final day = notification!.day.toString();
-    final hour = notification!.hour.toString();
-    final minute = notification!.minute.toString();
-    this.endController.text = '$year/$month/$day/$hour/$minute';
+  void setNotification(DateTime notification) {
+    final month = notification.month.toString();
+    final day = notification.day.toString();
+    final hour = notification.hour.toString();
+    final minute = notification.minute.toString();
+    this.notificationController.text = '$month/$day $hour:$minute';
     notifyListeners();
   }
 
@@ -57,27 +54,18 @@ class AddPlanModel extends ChangeNotifier {
 
     final databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
-    final String path_to_db = path.join(databasePath, databaseName);
-
-    // SQL command literal
-    final String sql =
-        'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start DATETIME, end DATETIME, notification DATETIME, belongings TEXT, color TEXT)';
-
-    // Open or connect database
-    Future<Database> database = openDatabase(path_to_db,
-        // Create table
-        onCreate: (Database db, int version) async {
-      await db.execute(sql);
-    });
-
+    WidgetsFlutterBinding.ensureInitialized();
+    final database = openDatabase(
+      join(databasePath, databaseName),
+    );
     final db = await database;
     final String tableName = 'ToDo';
     Map<String, dynamic> record = {
       'title': title,
       'content': content,
-      'start': start,
-      'end': end,
-      'notification': notification,
+      'start': start?.toUtc().toIso8601String(),
+      'end': end?.toUtc().toIso8601String(),
+      'notification': notification?.toUtc().toIso8601String(),
       'belongings': belongings,
       'color': color,
     };

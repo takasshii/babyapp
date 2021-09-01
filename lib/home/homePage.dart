@@ -1,3 +1,4 @@
+import 'package:babyapp/ToDo/plans/findPlan.dart';
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
 import 'package:babyapp/Blog/blogs/findBlog.dart';
@@ -13,7 +14,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<UserModel>(create: (_) => UserModel()..fetchUserList()),
+        ListenableProvider<UserModel>(
+            create: (_) => UserModel()..fetchUserList()),
         ListenableProvider<HomeModel>(create: (_) => HomeModel()..fetchTime()),
       ],
       child: Scaffold(
@@ -70,7 +72,8 @@ class HomePage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     //時間帯で変わるようにする
-                    child: Consumer<HomeModel>(builder: (context, model, child) {
+                    child: Consumer<HomeModel>(
+                      builder: (context, model, child) {
                         final greeting = model.greeting;
                         if (greeting == null) {
                           return Center(child: CircularProgressIndicator());
@@ -84,7 +87,7 @@ class HomePage extends StatelessWidget {
                           ),
                           textAlign: TextAlign.left,
                         );
-                      }
+                      },
                     ),
                   ),
                   Row(
@@ -354,7 +357,10 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
-                        //todo
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FindPlan()),
+                        );
                       },
                       child: Container(
                         child: SizedBox(

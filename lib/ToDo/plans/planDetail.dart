@@ -102,7 +102,7 @@ class PlanDetail extends StatelessWidget {
                   width: double.infinity,
                   //Statusを取得
                   child: Text(
-                    plan.title!,
+                    plan.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

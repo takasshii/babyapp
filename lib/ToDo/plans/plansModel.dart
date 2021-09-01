@@ -10,21 +10,31 @@ class PlanListModel extends ChangeNotifier {
   void fetchPlanList() async {
     final databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
+
+    // SQL command literal
+    final String createSql =
+        'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start TEXT, end TEXT, notification TEXT, belongings TEXT, color TEXT)';
     WidgetsFlutterBinding.ensureInitialized();
+    // Open or connect database
     final database = openDatabase(
       join(databasePath, databaseName),
+      onCreate: (db, version) {
+        return db.execute(createSql);
+      },
+      version: 1,
     );
+
     final db = await database;
-    final String sql = 'SELECT * FROM ToDo';
-    final List<Map<String, dynamic>> maps = await db.rawQuery(sql);
+    final String insertSql = 'SELECT * FROM ToDo';
+    final List<Map<String, dynamic>> maps = await db.rawQuery(insertSql);
     final List<ToDo> plans = List.generate(maps.length, (i) {
         final String title = maps[i]['title'];
-        final String content = maps[i]['content'];
-        final DateTime start = maps[i]['start'];
-        final DateTime end = maps[i]['end'];
-        final DateTime notification = maps[i]['notification'];
-        final String belongings = maps[i]['belongings'];
-        final String color = maps[i]['color'];
+        final String? content = maps[i]['content'];
+        final DateTime? start = DateTime.parse(maps[i]['start']).toLocal();
+        final DateTime? end = DateTime.parse(maps[i]['end']).toLocal();
+        final DateTime? notification = DateTime.parse(maps[i]['notification']).toLocal();
+        final String? belongings = maps[i]['belongings'];
+        final String? color = maps[i]['color'];
         final int id = maps[i]['id'];
       return ToDo(id, title, content, start, end, notification, belongings, color);
     }).toList();
