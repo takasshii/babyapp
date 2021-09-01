@@ -8,11 +8,11 @@ class PlanListModel extends ChangeNotifier {
   List<ToDo>? plans;
 
   void fetchPlanList() async {
-    final database_name = 'your_database.db';
-    final database_path = await getDatabasesPath();
+    final databaseName = 'your_database.db';
+    final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(
-      join(database_path, database_name),
+      join(databasePath, databaseName),
     );
     final db = await database;
     final String sql = 'SELECT * FROM ToDo';
@@ -34,11 +34,11 @@ class PlanListModel extends ChangeNotifier {
   }
 
   Future delete(ToDo plan) async {
-    final database_name = 'your_database.db';
-    final database_path = await getDatabasesPath();
+    final databaseName = 'your_database.db';
+    final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(
-      join(database_path, database_name),
+      join(databasePath, databaseName),
     );
     final db = await database;
     await db.delete(

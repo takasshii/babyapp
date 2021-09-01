@@ -32,19 +32,19 @@ class PlanDetail extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                child:
-                    Consumer<PlanListModel>(builder: (context, model, child) {
-                  return PopupMenuButton(
+                child: Consumer<PlanListModel>(
+                  builder: (context, model, child) {
+                    return PopupMenuButton(
                       itemBuilder: (context) => [
-                            PopupMenuItem(
-                              child: Text("Edit"),
-                              value: 0,
-                            ),
-                            PopupMenuItem(
-                              child: Text("Delete"),
-                              value: 1,
-                            ),
-                          ],
+                        PopupMenuItem(
+                          child: Text("Edit"),
+                          value: 0,
+                        ),
+                        PopupMenuItem(
+                          child: Text("Delete"),
+                          value: 1,
+                        ),
+                      ],
                       onSelected: (result) async {
                         if (result == 0) {
                           final String? title = await Navigator.push(
@@ -67,8 +67,10 @@ class PlanDetail extends StatelessWidget {
                         if (result == 1) {
                           showConfirmDialog(context, plan, model);
                         }
-                      });
-                }),
+                      },
+                    );
+                  },
+                ),
               ),
             ],
             elevation: 0.0,
@@ -260,36 +262,36 @@ class PlanDetail extends StatelessWidget {
                     : Container(),
                 plan.belongings != null
                     ? Column(
-                  children: [
-                    Container(
-                      //Statusを取得
-                      padding: EdgeInsets.only(top: 20),
-                      width: double.infinity,
-                      child: Text(
-                        "持ち物",
-                        style: TextStyle(
-                          color: Color(0x98FFFFFF),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      width: double.infinity,
-                      //Statusを取得
-                      child: Text(
-                        plan.belongings!,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    )
-                  ],
-                )
+                        children: [
+                          Container(
+                            //Statusを取得
+                            padding: EdgeInsets.only(top: 20),
+                            width: double.infinity,
+                            child: Text(
+                              "持ち物",
+                              style: TextStyle(
+                                color: Color(0x98FFFFFF),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
+                            width: double.infinity,
+                            //Statusを取得
+                            child: Text(
+                              plan.belongings!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          )
+                        ],
+                      )
                     : Container(),
               ],
             ),

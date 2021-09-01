@@ -1,4 +1,3 @@
-import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
@@ -37,7 +36,7 @@ class AddPlanModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setnotification(DateTime end) {
+  void setNotification(DateTime end) {
     final year = notification!.year.toString();
     final month = notification!.month.toString();
     final day = notification!.day.toString();
@@ -56,10 +55,9 @@ class AddPlanModel extends ChangeNotifier {
       throw Exception("titleが入力されていません");
     }
 
-    // Create an absolute path to databse
-    final database_name = 'your_database.db';
-    final database_path = await getDatabasesPath();
-    final String path_to_db = path.join(database_path, database_name);
+    final databaseName = 'your_database.db';
+    final databasePath = await getDatabasesPath();
+    final String path_to_db = path.join(databasePath, databaseName);
 
     // SQL command literal
     final String sql =
@@ -73,7 +71,7 @@ class AddPlanModel extends ChangeNotifier {
     });
 
     final db = await database;
-    final String table_name = 'ToDo';
+    final String tableName = 'ToDo';
     Map<String, dynamic> record = {
       'title': title,
       'content': content,
@@ -86,7 +84,7 @@ class AddPlanModel extends ChangeNotifier {
 
 
     await db.insert(
-      table_name,
+      tableName,
       record,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );

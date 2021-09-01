@@ -60,11 +60,11 @@ class EditPlanModel extends ChangeNotifier {
   }
 
   void setNotification(DateTime notification) {
-    final year = notification!.year.toString();
-    final month = notification!.month.toString();
-    final day = notification!.day.toString();
-    final hour = notification!.hour.toString();
-    final minute = notification!.minute.toString();
+    final year = notification.year.toString();
+    final month = notification.month.toString();
+    final day = notification.day.toString();
+    final hour = notification.hour.toString();
+    final minute = notification.minute.toString();
     this.notificationController.text = '$year/$month/$day/$hour/$minute';
     notifyListeners();
   }
@@ -92,9 +92,11 @@ class EditPlanModel extends ChangeNotifier {
     this.content = contentController.text;
     this.belongings = belongingsController.text;
     this.color = colorController.text;
+    final databaseName = 'your_database.db';
+    final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
-    final db = openDatabase(
-      join(await getDatabasesPath(), 'your_database.db'),
+    final database = openDatabase(
+      join(databasePath, databaseName),
     );
     final String tableName = 'ToDo';
     Map<String, dynamic> record = {
@@ -106,8 +108,8 @@ class EditPlanModel extends ChangeNotifier {
       'belongings': belongings,
       'color': color,
     };
-
-    return await db.update(
+    final db = await database;
+    await db.update(
       tableName,
       record,
       where: 'id = ?',

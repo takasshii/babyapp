@@ -138,7 +138,7 @@ class AddPlanPage extends StatelessWidget {
                                   showTitleActions: true,
                                   maxTime: DateTime.now().add(new Duration(days: 360)),
                                   onConfirm: (text) {
-                                    model.setnotification(text);
+                                    model.setNotification(text);
                                     model.notification = text;
                                   }, currentTime: model.start, locale: LocaleType.jp);
                             },
