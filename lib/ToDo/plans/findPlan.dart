@@ -1,15 +1,15 @@
-import 'package:babyapp/Blog/addBlog/addBlogPage.dart';
-import 'package:babyapp/Blog/blogs/blogDetail.dart';
-import 'package:babyapp/Blog/blogs/blogsModel.dart';
-import 'package:babyapp/domain/blog.dart';
+import 'package:babyapp/ToDo/addToDo/addPlanPage.dart';
+import 'package:babyapp/ToDo/plans/planDetail.dart';
+import 'package:babyapp/ToDo/plans/plansModel.dart';
+import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FindBlog extends StatelessWidget {
+class FindPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<BlogListModel>(
-      create: (_) => BlogListModel()..fetchBlogList(),
+    return ChangeNotifierProvider<PlanListModel>(
+      create: (_) => PlanListModel()..fetchPlanList(),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -40,16 +40,16 @@ class FindBlog extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<BlogListModel>(
+        body: Consumer<PlanListModel>(
           builder: (context, model, child) {
-            final List<Blog>? blogs = model.blogs;
+            final List<ToDo>? plans = model.plans;
 
-            if (blogs == null) {
+            if (plans == null) {
               return Center(child: CircularProgressIndicator());
             }
-            final List<Widget> widgets = blogs
+            final List<Widget> widgets = plans
                 .map(
-                  (blog) => Padding(
+                  (plan) => Padding(
                     padding: EdgeInsets.only(top: 12, right: 20, left: 20),
                     child: Container(
                       padding: EdgeInsets.only(top: 12, bottom: 12),
@@ -61,10 +61,10 @@ class FindBlog extends StatelessWidget {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BlogDetail(blog),
+                              builder: (context) => PlanDetail(plan),
                             ),
                           );
-                          model.fetchBlogList();
+                          model.fetchPlanList();
                         },
                         title: Container(
                           child: Row(
@@ -75,7 +75,7 @@ class FindBlog extends StatelessWidget {
                                 child: Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    blog.title,
+                                    plan.title!,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -86,36 +86,54 @@ class FindBlog extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 4),
+                              plan.start != null ? Row(
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 4),
+                                        child: Text(
+                                          '${plan.start!.hour}:${plan.start!.minute}',
+                                          style: TextStyle(
+                                              fontSize: 10, color: Colors.white),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
                                     child: Text(
-                                      'from',
+                                      '~',
                                       style: TextStyle(
-                                          fontSize: 10, color: Colors.white),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.deepOrangeAccent
+                                            .withOpacity(0.9),
+                                      ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  blog.author,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.deepOrangeAccent
-                                        .withOpacity(0.9),
+                                  Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text(
+                                      '${plan.start!.hour}:${plan.start!.minute}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.deepOrangeAccent
+                                            .withOpacity(0.9),
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
+                                ],
+                              ) : Container(),
                               Icon(
                                 Icons.chevron_right_rounded,
                                 color: Color(0x98FFFFFF),
@@ -127,15 +145,15 @@ class FindBlog extends StatelessWidget {
                         subtitle: Padding(
                           padding: const EdgeInsets.only(
                               left: 12, top: 4, right: 12),
-                          child: Text(
-                            blog.content,
+                          child: plan.content != null ? Text(
+                            plan.content!,
                             style: TextStyle(
                               color: Color(0x98FFFFFF),
                               fontSize: 14,
                             ),
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
-                          ),
+                          ): Container(),
                         ),
                       ),
                     ),
@@ -148,14 +166,14 @@ class FindBlog extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: Consumer<BlogListModel>(
+        floatingActionButton: Consumer<PlanListModel>(
           builder: (context, model, child) {
             return FloatingActionButton(
               onPressed: () async {
                 final bool? added = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddBlogPage(),
+                    builder: (context) => AddPlanPage(),
                     fullscreenDialog: true,
                   ),
                 );
@@ -166,7 +184,7 @@ class FindBlog extends StatelessWidget {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
-                model.fetchBlogList();
+                model.fetchPlanList();
               },
               child: Icon(Icons.add),
             );

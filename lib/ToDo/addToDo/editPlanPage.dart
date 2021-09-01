@@ -1,16 +1,17 @@
-import 'package:babyapp/Blog/addBlog/editBlogModel.dart';
-import 'package:babyapp/domain/blog.dart';
+import 'package:babyapp/ToDo/addToDo/editPlanModel.dart';
+import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditBlogPage extends StatelessWidget {
-  EditBlogPage(this.blog);
-  final Blog blog;
+class EditPlanPage extends StatelessWidget {
+  EditPlanPage(this.plan);
+  final ToDo plan;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditBlogModel>(
-      create: (_) => EditBlogModel(blog),
+    return ChangeNotifierProvider<EditPlanModel>(
+      create: (_) => EditPlanModel(plan),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -41,7 +42,7 @@ class EditBlogPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<EditBlogModel>(
+        body: Consumer<EditPlanModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Container(
@@ -51,9 +52,8 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.titleController,
                         onChanged: (text) {
-                          model.setTitle(text);
+                          model.title = text;
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -70,19 +70,110 @@ class EditBlogPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            controller: model.startController,
+                            onTap: () {
+                              //ドラムロール式の生年月日選択ができるようにする
+                              DatePicker.showDateTimePicker(context,
+                                  minTime: DateTime.now(),
+                                  showTitleActions: true,
+                                  maxTime: DateTime.now().add(new Duration(days: 360)),
+                                  onConfirm: (text) {
+                                    model.setStart(text);
+                                    model.start = text;
+                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
+                            },
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              fillColor: Colors.black,
+                              filled: true,
+                              labelText: '開始時刻',
+                              labelStyle: TextStyle(
+                                color: Color(0x98FFFFFF),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            controller: model.endController,
+                            onTap: () {
+                              //ドラムロール式の生年月日選択ができるようにする
+                              DatePicker.showDateTimePicker(context,
+                                  minTime: DateTime.now(),
+                                  showTitleActions: true,
+                                  maxTime: DateTime.now().add(new Duration(days: 360)),
+                                  onConfirm: (text) {
+                                    model.setEnd(text);
+                                    model.end = text;
+                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
+                            },
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              fillColor: Colors.black,
+                              filled: true,
+                              labelText: '終了時刻',
+                              labelStyle: TextStyle(
+                                color: Color(0x98FFFFFF),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 20),
+                          child: TextFormField(
+                            enabled: model.isWritten() ? true : false,
+                            controller: model.notificationController,
+                            onTap: () {
+                              //ドラムロール式で選択
+                              DatePicker.showDateTimePicker(context,
+                                  minTime: DateTime.now(),
+                                  showTitleActions: true,
+                                  maxTime: DateTime.now().add(new Duration(days: 360)),
+                                  onConfirm: (text) {
+                                    model.setNotification(text);
+                                    model.notification = text;
+                                  }, currentTime: model.start, locale: LocaleType.jp);
+                            },
+                            style: TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              fillColor: Colors.black,
+                              filled: true,
+                              labelText: '通知時間',
+                              labelStyle: TextStyle(
+                                color: Color(0x98FFFFFF),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.authorController,
                         onChanged: (text) {
-                          model.setAuthor(text);
+                          model.belongings = text;
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           fillColor: Colors.black,
                           filled: true,
-                          labelText: 'author',
+                          labelText: '必要なもの',
                           labelStyle: TextStyle(
                             color: Color(0x98FFFFFF),
                           ),
@@ -95,9 +186,8 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.contentController,
                         onChanged: (text) {
-                          model.setAuthor(text);
+                          model.content = text;
                         },
                         minLines: 10,
                         maxLines: null,
@@ -108,7 +198,7 @@ class EditBlogPage extends StatelessWidget {
                         decoration: InputDecoration(
                           fillColor: Colors.black,
                           filled: true,
-                          labelText: 'Content',
+                          labelText: 'Memo',
                           labelStyle: TextStyle(
                             color: Color(0x98FFFFFF),
                           ),
