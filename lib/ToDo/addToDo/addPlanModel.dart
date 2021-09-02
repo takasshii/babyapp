@@ -21,7 +21,10 @@ class AddPlanModel extends ChangeNotifier {
     final hour = start.hour.toString();
     final minute = start.minute.toString();
     this.startController.text = '$month/$day $hour:$minute';
-    end != null ? this.endController.text = '$month/$day $hour:${(start.minute+10).toString()}':this.endController.text = '';
+    if (end == null || start.isAfter(end!)) {
+      this.end = start.add(Duration(minutes: 10));
+      setEnd(end!);
+    }
     notifyListeners();
   }
 
@@ -31,6 +34,10 @@ class AddPlanModel extends ChangeNotifier {
     final hour = end.hour.toString();
     final minute = end.minute.toString();
     this.endController.text = '$month/$day $hour:$minute';
+    if (start == null || start!.isAfter(end)) {
+      this.start = end.add(Duration(minutes: 10) * -1);
+      setStart(start!);
+    }
     notifyListeners();
   }
 
@@ -43,7 +50,7 @@ class AddPlanModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isWritten(){
+  bool isWritten() {
     return start != null;
   }
 
@@ -69,7 +76,6 @@ class AddPlanModel extends ChangeNotifier {
       'belongings': belongings,
       'color': color,
     };
-
 
     await db.insert(
       tableName,

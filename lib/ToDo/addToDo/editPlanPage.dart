@@ -21,7 +21,7 @@ class EditPlanPage extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "Blog List",
+                "Edit ToDo",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -52,8 +52,9 @@ class EditPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.titleController,
                         onChanged: (text) {
-                          model.title = text;
+                          model.setTitle(text);
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -72,90 +73,98 @@ class EditPlanPage extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: model.startController,
-                            onTap: () {
-                              //ドラムロール式の生年月日選択ができるようにする
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setStart(text);
-                                    model.start = text;
-                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '開始時刻',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: model.endController,
-                            onTap: () {
-                              //ドラムロール式の生年月日選択ができるようにする
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setEnd(text);
-                                    model.end = text;
-                                  }, currentTime: DateTime.now(), locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '終了時刻',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, right: 5),
+                            child: TextFormField(
+                              controller: model.startController,
+                              onTap: () {
+                                //ドラムロール式の生年月日選択ができるようにする
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                      model.setStart(text);
+                                      model.start = text;
+                                    }, currentTime: model.start, locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '開始時刻',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            enabled: model.isWritten() ? true : false,
-                            controller: model.notificationController,
-                            onTap: () {
-                              //ドラムロール式で選択
-                              DatePicker.showDateTimePicker(context,
-                                  minTime: DateTime.now(),
-                                  showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
-                                  onConfirm: (text) {
-                                    model.setNotification(text);
-                                    model.notification = text;
-                                  }, currentTime: model.start, locale: LocaleType.jp);
-                            },
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              fillColor: Colors.black,
-                              filled: true,
-                              labelText: '通知時間',
-                              labelStyle: TextStyle(
-                                color: Color(0x98FFFFFF),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, left: 5, right: 5),
+                            child: TextFormField(
+                              controller: model.endController,
+                              onTap: () {
+                                //ドラムロール式の生年月日選択ができるようにする
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                      model.setEnd(text);
+                                      model.end = text;
+                                    }, currentTime: model.end, locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '終了時刻',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, left: 5),
+                            child: TextFormField(
+                              controller: model.notificationController,
+                              onTap: () {
+                                //ドラムロール式で選択
+                                DatePicker.showDateTimePicker(context,
+                                    minTime: DateTime.now(),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                      model.setNotification(text);
+                                      model.notification = text;
+                                    }, currentTime: model.notification, locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '通知時間',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
@@ -165,8 +174,9 @@ class EditPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.belongingsController,
                         onChanged: (text) {
-                          model.belongings = text;
+                          model.setBelongings(text);
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -186,8 +196,9 @@ class EditPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.contentController,
                         onChanged: (text) {
-                          model.content = text;
+                          model.setContent(text);
                         },
                         minLines: 10,
                         maxLines: null,

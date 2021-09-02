@@ -50,9 +50,9 @@ class FindPlan extends StatelessWidget {
             final List<Widget> widgets = plans
                 .map(
                   (plan) => Padding(
-                    padding: EdgeInsets.only(top: 12, right: 20, left: 20),
+                    padding: EdgeInsets.only(top: 10, right: 20, left: 20),
                     child: Container(
-                      padding: EdgeInsets.only(top: 12, bottom: 12),
+                      padding: EdgeInsets.only(top: 8, bottom: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.black.withOpacity(0.7)),
@@ -69,72 +69,65 @@ class FindPlan extends StatelessWidget {
                         title: Container(
                           child: Row(
                             children: [
-                              Container(
-                                constraints: BoxConstraints(maxWidth: 200),
-                                padding: EdgeInsets.only(left: 12),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    plan.title,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ),
                               plan.start != null
-                                  ? Align(
-                                      alignment: Alignment.bottomRight,
+                                  ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8, right: 2),
+                                    child: Text(
+                                      '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.deepOrangeAccent
+                                              .withOpacity(0.9)),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )
+                                  : Container(),
+                              plan.start != null
+                                  ? Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 2, right: 2),
+                                    child: Text(
+                                      '~',
+                                      style: TextStyle(
+                                          fontSize: 14, color: Colors.white),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )
+                                  : Container(),
+                              plan.end != null
+                                  ? Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, right: 4),
+                                        padding: EdgeInsets.only(
+                                            left: 2, right: 4),
                                         child: Text(
-                                          '${plan.start!.hour}:${plan.start!.minute}',
+                                          '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}',
                                           style: TextStyle(
-                                              fontSize: 10,
-                                              color: Colors.white),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                              color: Colors.deepOrangeAccent
+                                                  .withOpacity(0.9)),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
                                     )
-                                  : Container(),
-                              plan.start != null
-                                  ? Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        '~',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.deepOrangeAccent
-                                              .withOpacity(0.9),
+                                  : Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 4),
+                                        child: Text(
+                                          '期限指定なし',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.deepOrangeAccent),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )
-                                  : Container(),
-                              plan.end != null
-                                  ? Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        '${plan.end!.hour}:${plan.end!.minute}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.deepOrangeAccent
-                                              .withOpacity(0.9),
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )
-                                  : Container(),
+                                      ),),
                               Icon(
                                 Icons.chevron_right_rounded,
                                 color: Color(0x98FFFFFF),
@@ -144,19 +137,20 @@ class FindPlan extends StatelessWidget {
                           ),
                         ),
                         subtitle: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12, top: 4, right: 12),
-                          child: plan.content != null
-                              ? Text(
-                                  plan.content!,
-                                  style: TextStyle(
-                                    color: Color(0x98FFFFFF),
-                                    fontSize: 14,
-                                  ),
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              : Container(),
+                          padding:
+                              const EdgeInsets.only(left: 8, right: 12, bottom: 4),
+                          child: Container(
+                            child: Text(
+                              plan.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
                       ),
                     ),

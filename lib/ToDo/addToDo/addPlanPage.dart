@@ -46,7 +46,7 @@ class AddPlanPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 10),
                       child: TextFormField(
                         onChanged: (text) {
                           model.title = text;
@@ -69,9 +69,9 @@ class AddPlanPage extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          flex: 2,
+                          flex: 1,
                           child: Container(
-                            padding: EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: 20, right: 5),
                             child: TextFormField(
                               controller: model.startController,
                               onTap: () {
@@ -85,7 +85,7 @@ class AddPlanPage extends StatelessWidget {
                                   model.setStart(text);
                                   model.start = text;
                                 },
-                                    currentTime: DateTime.now(),
+                                    currentTime: model.start,
                                     locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
@@ -106,23 +106,7 @@ class AddPlanPage extends StatelessWidget {
                         Flexible(
                           flex: 1,
                           child: Container(
-                            padding: EdgeInsets.only(top: 20, left: 10),
-                            child: Text(
-                              '~',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.deepOrangeAccent.withOpacity(0.9),
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20, left: 10),
+                            padding: EdgeInsets.only(top: 20, left: 5, right: 5),
                             child: TextFormField(
                               controller: model.endController,
                               onTap: () {
@@ -136,7 +120,7 @@ class AddPlanPage extends StatelessWidget {
                                   model.setEnd(text);
                                   model.end = text;
                                 },
-                                    currentTime: DateTime.now(),
+                                    currentTime: model.end,
                                     locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
@@ -155,11 +139,10 @@ class AddPlanPage extends StatelessWidget {
                           ),
                         ),
                         Flexible(
-                          flex: 2,
+                          flex: 1,
                           child: Container(
-                            padding: EdgeInsets.only(top: 20, left: 20),
+                            padding: EdgeInsets.only(top: 20, left: 5),
                             child: TextFormField(
-                              enabled: model.isWritten() && model.start!.isAfter(DateTime.now()) ? true : false,
                               controller: model.notificationController,
                               onTap: () {
                                 //ドラムロール式で選択
@@ -170,7 +153,7 @@ class AddPlanPage extends StatelessWidget {
                                   model.setNotification(text);
                                   model.notification = text;
                                 },
-                                    currentTime: DateTime.now(),
+                                    currentTime: model.notification,
                                     locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),

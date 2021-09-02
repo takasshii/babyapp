@@ -30,9 +30,9 @@ class PlanListModel extends ChangeNotifier {
     final List<ToDo> plans = List.generate(maps.length, (i) {
         final String title = maps[i]['title'];
         final String? content = maps[i]['content'];
-        final DateTime? start = DateTime.parse(maps[i]['start']).toLocal();
-        final DateTime? end = DateTime.parse(maps[i]['end']).toLocal();
-        final DateTime? notification = DateTime.parse(maps[i]['notification']).toLocal();
+        final DateTime? start = maps[i]['start'] != null ? DateTime.parse(maps[i]['start']).toLocal() : null;
+        final DateTime? end = maps[i]['end'] != null ? DateTime.parse(maps[i]['end']).toLocal(): null;
+        final DateTime? notification = maps[i]['notification'] != null ? DateTime.parse(maps[i]['notification']).toLocal(): null;
         final String? belongings = maps[i]['belongings'];
         final String? color = maps[i]['color'];
         final int id = maps[i]['id'];

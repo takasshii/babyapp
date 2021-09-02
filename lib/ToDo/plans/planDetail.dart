@@ -79,13 +79,12 @@ class PlanDetail extends StatelessWidget {
         backgroundColor: Color(0xff181E27),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(top: 10,left: 30, right: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   //Statusを取得
-                  padding: EdgeInsets.only(top: 20),
                   width: double.infinity,
                   child: Text(
                     "Title",
@@ -116,7 +115,7 @@ class PlanDetail extends StatelessWidget {
                         children: [
                           Container(
                             //Statusを取得
-                            padding: EdgeInsets.only(top: 20),
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
                             width: double.infinity,
                             child: Text(
                               "Time",
@@ -130,133 +129,71 @@ class PlanDetail extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 4),
-                                    child: Text(
-                                      '${plan.start!.hour}:${plan.start!.minute}',
-                                      style: TextStyle(
-                                          fontSize: 10, color: Colors.white),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                              plan.start != null
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: Text(
+                                        '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
+                                        style: TextStyle(
+                                          color: Colors.deepOrangeAccent,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
+                                  : Container(),
+                              plan.start != null
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 4),
+                                      child: Text(
+                                        '~',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25,
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
+                                  : Container(),
+                              plan.end != null
+                                  ? Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 4),
+                                        child: Text(
+                                          '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}',
+                                          style: TextStyle(
+                                            color: Colors.deepOrangeAccent,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    )
+                                  : Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 8, right: 4),
+                                        child: Text(
+                                          '期限指定なし',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25,
+                                              color: Colors.deepOrangeAccent),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  '~',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.deepOrangeAccent
-                                        .withOpacity(0.9),
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Text(
-                                  '${plan.start!.hour}:${plan.start!.minute}',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: Colors.deepOrangeAccent
-                                        .withOpacity(0.9),
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
                             ],
                           ),
-                        ],
-                      )
-                    : Container(),
-                //1つ目
-                plan.content != null
-                    ? Column(
-                        children: [
-                          Container(
-                            //Statusを取得
-                            padding: EdgeInsets.only(top: 20),
-                            width: double.infinity,
-                            child: Text(
-                              "Content",
-                              style: TextStyle(
-                                color: Color(0x98FFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            width: double.infinity,
-                            //Statusを取得
-                            child: Text(
-                              plan.content!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(),
-                Container(
-                  //Statusを取得
-                  padding: EdgeInsets.only(top: 20),
-                  width: double.infinity,
-                  child: Text(
-                    "詳細",
-                    style: TextStyle(
-                      color: Color(0x98FFFFFF),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                plan.notification != null
-                    ? Column(
-                        children: [
-                          Container(
-                            //Statusを取得
-                            padding: EdgeInsets.only(top: 20),
-                            width: double.infinity,
-                            child: Text(
-                              "通知時間",
-                              style: TextStyle(
-                                color: Color(0x98FFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            width: double.infinity,
-                            //Statusを取得
-                            child: Text(
-                              '${plan.notification!.hour}:${plan.notification!.minute}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          )
                         ],
                       )
                     : Container(),
@@ -283,6 +220,73 @@ class PlanDetail extends StatelessWidget {
                             //Statusを取得
                             child: Text(
                               plan.belongings!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          )
+                        ],
+                      )
+                    : Container(),
+                //1つ目
+                plan.content != null
+                    ? Column(
+                        children: [
+                          Container(
+                            //Statusを取得
+                            padding: EdgeInsets.only(top: 20),
+                            width: double.infinity,
+                            child: Text(
+                              "Memo",
+                              style: TextStyle(
+                                color: Color(0x98FFFFFF),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
+                            width: double.infinity,
+                            //Statusを取得
+                            child: Text(
+                              plan.content!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          )
+                        ],
+                      )
+                    : Container(),
+                plan.notification != null
+                    ? Column(
+                        children: [
+                          Container(
+                            //Statusを取得
+                            padding: EdgeInsets.only(top: 20),
+                            width: double.infinity,
+                            child: Text(
+                              "通知時間",
+                              style: TextStyle(
+                                color: Color(0x98FFFFFF),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
+                            width: double.infinity,
+                            //Statusを取得
+                            child: Text(
+                              '${plan.notification!.hour}:${plan.notification!.minute}',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14,
