@@ -1,15 +1,22 @@
+import 'dart:collection';
+
 import 'package:babyapp/ToDo/addToDo/addPlanPage.dart';
 import 'package:babyapp/ToDo/plans/planDetail.dart';
 import 'package:babyapp/ToDo/plans/plansModel.dart';
 import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class FindPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<PlanListModel>(
-      create: (_) => PlanListModel()..fetchPlanList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<PlanListModel>(
+            create: (_) => PlanListModel()..fetchPlanList()),
+        ChangeNotifierProvider<ChangeCalender>(create: (_) => ChangeCalender()),
+      ],
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -47,6 +54,42 @@ class FindPlan extends StatelessWidget {
             if (plans == null) {
               return Center(child: CircularProgressIndicator());
             }
+
+            DateTime _focusedDay = DateTime.now();
+            DateTime? _selectedDay;
+            Map<DateTime, List> _eventsList = {};
+
+            int getHashCode(DateTime key) {
+              return key.day * 1000000 + key.month * 10000 + key.year;
+            }
+            final _events = LinkedHashMap<DateTime, List>(
+              equals: isSameDay,
+              hashCode: getHashCode,
+            )..addAll(_eventsList);
+
+            List getEventForDay(DateTime day) {
+              return _events[day] ?? [];
+            }
+
+            final store = Provider.of<ChangeCalender>(context);
+
+            TableCalendar(
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2030, 12, 31),
+              focusedDay: _focusedDay,
+              eventLoader: getEventForDay,
+              calendarFormat: store.calendarFormat,
+              onFormatChanged: (format) {
+                store.changeFormat(format);
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                store.changeSelected(_selectedDay, focusedDay);
+              },
+            );
+
             final List<Widget> widgets = plans
                 .map(
                   (plan) => Padding(
@@ -71,38 +114,38 @@ class FindPlan extends StatelessWidget {
                             children: [
                               plan.start != null
                                   ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 2),
-                                    child: Text(
-                                      '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.deepOrangeAccent
-                                              .withOpacity(0.9)),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  )
+                                      padding: const EdgeInsets.only(
+                                          left: 8, right: 2),
+                                      child: Text(
+                                        '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                            color: Colors.deepOrangeAccent
+                                                .withOpacity(0.9)),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
                                   : Container(),
                               plan.start != null
                                   ? Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 2, right: 2),
-                                    child: Text(
-                                      '~',
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.white),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  )
+                                      padding:
+                                          EdgeInsets.only(left: 2, right: 2),
+                                      child: Text(
+                                        '~',
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.white),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
                                   : Container(),
                               plan.end != null
                                   ? Expanded(
                                       child: Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 2, right: 4),
+                                        padding:
+                                            EdgeInsets.only(left: 2, right: 4),
                                         child: Text(
                                           '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}',
                                           style: TextStyle(
@@ -127,7 +170,8 @@ class FindPlan extends StatelessWidget {
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                      ),),
+                                      ),
+                                    ),
                               Icon(
                                 Icons.chevron_right_rounded,
                                 color: Color(0x98FFFFFF),
@@ -137,8 +181,8 @@ class FindPlan extends StatelessWidget {
                           ),
                         ),
                         subtitle: Padding(
-                          padding:
-                              const EdgeInsets.only(left: 8, right: 12, bottom: 4),
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 12, bottom: 4),
                           child: Container(
                             child: Text(
                               plan.title,
