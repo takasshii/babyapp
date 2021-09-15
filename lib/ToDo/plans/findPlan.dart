@@ -1,12 +1,9 @@
-import 'dart:collection';
-
 import 'package:babyapp/ToDo/addToDo/addPlanPage.dart';
 import 'package:babyapp/ToDo/plans/planDetail.dart';
 import 'package:babyapp/ToDo/plans/plansModel.dart';
 import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class FindPlan extends StatelessWidget {
   @override
@@ -15,7 +12,6 @@ class FindPlan extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<PlanListModel>(
             create: (_) => PlanListModel()..fetchPlanList()),
-        ChangeNotifierProvider<ChangeCalender>(create: (_) => ChangeCalender()),
       ],
       child: Scaffold(
         appBar: PreferredSize(
@@ -55,47 +51,12 @@ class FindPlan extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
 
-            DateTime _focusedDay = DateTime.now();
-            DateTime? _selectedDay;
-            Map<DateTime, List> _eventsList = {};
-
-            int getHashCode(DateTime key) {
-              return key.day * 1000000 + key.month * 10000 + key.year;
-            }
-            final _events = LinkedHashMap<DateTime, List>(
-              equals: isSameDay,
-              hashCode: getHashCode,
-            )..addAll(_eventsList);
-
-            List getEventForDay(DateTime day) {
-              return _events[day] ?? [];
-            }
-
-            final store = Provider.of<ChangeCalender>(context);
-
-            TableCalendar(
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              focusedDay: _focusedDay,
-              eventLoader: getEventForDay,
-              calendarFormat: store.calendarFormat,
-              onFormatChanged: (format) {
-                store.changeFormat(format);
-              },
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                store.changeSelected(_selectedDay, focusedDay);
-              },
-            );
-
             final List<Widget> widgets = plans
                 .map(
                   (plan) => Padding(
                     padding: EdgeInsets.only(top: 10, right: 20, left: 20),
                     child: Container(
-                      padding: EdgeInsets.only(top: 8, bottom: 12),
+                      padding: EdgeInsets.only(top: 6, bottom: 12),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           color: Colors.black.withOpacity(0.7)),
@@ -109,13 +70,27 @@ class FindPlan extends StatelessWidget {
                           );
                           model.fetchPlanList();
                         },
+                        leading: Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: IconButton(
+                            icon: Icon(Icons.check_box_outlined),
+                            color: Colors.white,
+                            //ここにロゴ置く
+                            iconSize: 30,
+                            onPressed: () async{
+                              await Future.delayed(Duration(milliseconds: 500));
+                              await model.delete(plan);
+                              model.fetchPlanList();
+                            }, //ここで設定開く
+                          ),
+                        ),
                         title: Container(
                           child: Row(
                             children: [
                               plan.start != null
                                   ? Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 8, right: 2),
+                                          left: 0, right: 2),
                                       child: Text(
                                         '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
                                         style: TextStyle(
@@ -161,7 +136,7 @@ class FindPlan extends StatelessWidget {
                                   : Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 8, right: 4),
+                                            left: 0, right: 4),
                                         child: Text(
                                           '期限指定なし',
                                           style: TextStyle(
@@ -182,7 +157,7 @@ class FindPlan extends StatelessWidget {
                         ),
                         subtitle: Padding(
                           padding: const EdgeInsets.only(
-                              left: 8, right: 12, bottom: 4),
+                              left: 0, right: 12, bottom: 4),
                           child: Container(
                             child: Text(
                               plan.title,

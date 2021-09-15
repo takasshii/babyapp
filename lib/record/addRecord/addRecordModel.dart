@@ -1,10 +1,8 @@
-import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-class EditPlanModel extends ChangeNotifier {
-  final ToDo plan;
+class AddPlanModel extends ChangeNotifier {
   String? title;
   String? content;
   DateTime? start;
@@ -13,47 +11,9 @@ class EditPlanModel extends ChangeNotifier {
   String? belongings;
   String? color;
 
-  EditPlanModel(this.plan) {
-    titleController.text = plan.title;
-    contentController.text = plan.content ?? '';
-    if (plan.start != null) {
-      startController.text =
-          '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}';
-      start = plan.start;
-    } else {
-      startController.text = '';
-    }
-    if (plan.end != null) {
-      endController.text =
-          '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}';
-      end = plan.end;
-    } else {
-      endController.text = '';
-    }
-    if (plan.notification != null) {
-      notificationController.text =
-          '${plan.notification!.month}/${plan.notification!.day} ${plan.notification!.hour}:${plan.notification!.minute}';
-      notification = plan.notification;
-    } else {
-      notificationController.text = '';
-    }
-    belongingsController.text = plan.belongings ?? "";
-    colorController.text = plan.color ?? "";
-  }
-
-  final titleController = TextEditingController();
-  final authorController = TextEditingController();
-  final contentController = TextEditingController();
   final startController = TextEditingController();
   final endController = TextEditingController();
   final notificationController = TextEditingController();
-  final belongingsController = TextEditingController();
-  final colorController = TextEditingController();
-
-  void setTitle(String title) {
-    this.title = title;
-    notifyListeners();
-  }
 
   void setStart(DateTime start) {
     final month = start.month.toString();
@@ -90,45 +50,22 @@ class EditPlanModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setBelongings(String belongings) {
-    this.belongings = belongings;
-    notifyListeners();
+  bool isWritten() {
+    return start != null;
   }
 
-  void setContent(String content) {
-    this.content = content;
-    notifyListeners();
-  }
-
-  void setColor(String? color) {
-    this.color = color;
-    notifyListeners();
-  }
-
-  bool isUpdated() {
-    return title != null ||
-        content != null ||
-        start != null ||
-        end != null ||
-        notification != null ||
-        belongings != null ||
-        color != null;
-  }
-
-  Future update() async {
-    this.title = titleController.text;
+  Future addPlan() async {
     if (title == null || title!.isEmpty) {
       throw Exception("titleが入力されていません");
     }
-    this.content = contentController.text;
-    this.belongings = belongingsController.text;
-    this.color = colorController.text;
+
     final databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(
       join(databasePath, databaseName),
     );
+    final db = await database;
     final String tableName = 'ToDo';
     Map<String, dynamic> record = {
       'title': title,
@@ -139,12 +76,11 @@ class EditPlanModel extends ChangeNotifier {
       'belongings': belongings,
       'color': color,
     };
-    final db = await database;
-    await db.update(
+
+    await db.insert(
       tableName,
       record,
-      where: 'id = ?',
-      whereArgs: [plan.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 }

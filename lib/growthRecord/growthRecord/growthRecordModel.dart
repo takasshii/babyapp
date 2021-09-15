@@ -3,34 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/widgets.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class PlanListModel extends ChangeNotifier {
   List<ToDo>? plans;
 
-
-  //SqLiteでToDOテーブルとDiaryテーブル作成
   void fetchPlanList() async {
     final databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
+
     // SQL command literal
-    final String createDiarySql =
-        'CREATE TABLE Diary (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, day TEXT, color TEXT)';
-    final String createToDoSql =
+    final String createSql =
         'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start TEXT, end TEXT, notification TEXT, belongings TEXT, color TEXT)';
     WidgetsFlutterBinding.ensureInitialized();
     // Open or connect database
     final database = openDatabase(
       join(databasePath, databaseName),
-      onCreate: (db, version) async {
-        await db.execute(createToDoSql);
-        await db.execute(createDiarySql);
+      onCreate: (db, version) {
+        return db.execute(createSql);
       },
       version: 1,
     );
 
-
-
-    //SQLiteからToDoデータを取得
     final db = await database;
     final String insertSql = 'SELECT * FROM ToDo';
     final List<Map<String, dynamic>> maps = await db.rawQuery(insertSql);
@@ -40,11 +34,9 @@ class PlanListModel extends ChangeNotifier {
       final DateTime? start = maps[i]['start'] != null
           ? DateTime.parse(maps[i]['start']).toLocal()
           : null;
-      //DateTimeはSQLiteにないので、String→DateTimeに変更
       final DateTime? end = maps[i]['end'] != null
           ? DateTime.parse(maps[i]['end']).toLocal()
           : null;
-      //DateTimeはSQLiteにないので、String→DateTimeに変更
       final DateTime? notification = maps[i]['notification'] != null
           ? DateTime.parse(maps[i]['notification']).toLocal()
           : null;
@@ -54,27 +46,11 @@ class PlanListModel extends ChangeNotifier {
       return ToDo(
           id, title, content, start, end, notification, belongings, color);
     }).toList();
-    //start時間の早い順にソート、指定なしは一番後ろに持ってきた
-    plans.sort((a, b) {
-      int result;
-      if (a.start == null) {
-        result = 1;
-      } else if (b.start == null) {
-        result = -1;
-      } else {
-        // Ascending Order
-        result = a.start!.compareTo(b.start!);
-      }
-      return result;
-    });
 
     this.plans = plans;
     notifyListeners();
   }
 
-
-  //SQLiteでDelete
-  // id=?とすると、SQLインジェクション対策になる
   Future delete(ToDo plan) async {
     final databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
@@ -88,14 +64,25 @@ class PlanListModel extends ChangeNotifier {
       where: 'id = ?',
       whereArgs: [plan.id],
     );
-  }notifyListeners();
+  }
 }
 
+class ChangeCalender with ChangeNotifier {
+  CalendarFormat calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
-class ChangeCheck extends ChangeNotifier {
-  bool changeCheck = false;
-  void changeIcon() {
-    changeCheck = true;
+  void changeFormat(format) {
+    if (calendarFormat != format) {
+      calendarFormat = format;
+    }
     notifyListeners();
+  }
+
+  void changeSelected(selectedDay, focusedDay) {
+    if (!isSameDay(_selectedDay, selectedDay)) {
+      _selectedDay = selectedDay;
+      _focusedDay = focusedDay;
+    }
   }
 }

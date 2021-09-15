@@ -1,13 +1,17 @@
-import 'package:babyapp/ToDo/addToDo/addPlanModel.dart';
+import 'package:babyapp/growthRecord/addGrowthRecord/editGrowthRecordModel.dart';
+import 'package:babyapp/domain/toDo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
-class AddPlanPage extends StatelessWidget {
+class EditPlanPage extends StatelessWidget {
+  EditPlanPage(this.plan);
+  final ToDo plan;
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AddPlanModel>(
-      create: (_) => AddPlanModel(),
+    return ChangeNotifierProvider<EditPlanModel>(
+      create: (_) => EditPlanModel(plan),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -17,7 +21,7 @@ class AddPlanPage extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "ToDo",
+                "Edit ToDo",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -38,7 +42,7 @@ class AddPlanPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<AddPlanModel>(
+        body: Consumer<EditPlanModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Container(
@@ -46,10 +50,11 @@ class AddPlanPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.titleController,
                         onChanged: (text) {
-                          model.title = text;
+                          model.setTitle(text);
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -79,14 +84,11 @@ class AddPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now()
-                                        .add(new Duration(days: 360)),
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
                                     onConfirm: (text) {
-                                  model.setStart(text);
-                                  model.start = text;
-                                },
-                                    currentTime: model.start,
-                                    locale: LocaleType.jp);
+                                      model.setStart(text);
+                                      model.start = text;
+                                    }, currentTime: model.start, locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
@@ -114,14 +116,11 @@ class AddPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now()
-                                        .add(new Duration(days: 360)),
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
                                     onConfirm: (text) {
-                                  model.setEnd(text);
-                                  model.end = text;
-                                },
-                                    currentTime: model.end,
-                                    locale: LocaleType.jp);
+                                      model.setEnd(text);
+                                      model.end = text;
+                                    }, currentTime: model.end, locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
@@ -149,12 +148,11 @@ class AddPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: model.start, onConfirm: (text) {
-                                  model.setNotification(text);
-                                  model.notification = text;
-                                },
-                                    currentTime: model.notification,
-                                    locale: LocaleType.jp);
+                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    onConfirm: (text) {
+                                      model.setNotification(text);
+                                      model.notification = text;
+                                    }, currentTime: model.notification, locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
@@ -176,8 +174,9 @@ class AddPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.belongingsController,
                         onChanged: (text) {
-                          model.belongings = text;
+                          model.setBelongings(text);
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
@@ -197,8 +196,9 @@ class AddPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
+                        controller: model.contentController,
                         onChanged: (text) {
-                          model.content = text;
+                          model.setContent(text);
                         },
                         minLines: 10,
                         maxLines: null,
@@ -222,21 +222,24 @@ class AddPlanPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 24),
                       child: ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await model.addPlan();
-                            Navigator.of(context).pop(true);
-                          } catch (e) {
-                            final snackBar = SnackBar(
-                              backgroundColor: Colors.red,
-                              content: Text(e.toString()),
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }
-                        },
+                        onPressed: model.isUpdated()
+                            ? () async {
+                                // 追加の処理
+                                try {
+                                  await model.update();
+                                  Navigator.of(context).pop(model.title);
+                                } catch (e) {
+                                  final snackBar = SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(e.toString()),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              }
+                            : null,
                         child: const Text(
-                          'Create New Plan',
+                          'Update',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,

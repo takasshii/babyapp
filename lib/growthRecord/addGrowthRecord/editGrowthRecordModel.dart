@@ -5,38 +5,22 @@ import 'package:sqflite/sqflite.dart';
 
 class EditPlanModel extends ChangeNotifier {
   final ToDo plan;
-  String? title;
-  String? content;
-  DateTime? start;
-  DateTime? end;
-  DateTime? notification;
-  String? belongings;
-  String? color;
 
   EditPlanModel(this.plan) {
     titleController.text = plan.title;
     contentController.text = plan.content ?? '';
-    if (plan.start != null) {
-      startController.text =
-          '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}';
-      start = plan.start;
-    } else {
-      startController.text = '';
-    }
-    if (plan.end != null) {
-      endController.text =
-          '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}';
-      end = plan.end;
-    } else {
-      endController.text = '';
-    }
-    if (plan.notification != null) {
-      notificationController.text =
-          '${plan.notification!.month}/${plan.notification!.day} ${plan.notification!.hour}:${plan.notification!.minute}';
-      notification = plan.notification;
-    } else {
-      notificationController.text = '';
-    }
+    plan.start != null
+        ? startController.text =
+            '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}'
+        : startController.text = '';
+    plan.end != null
+        ? endController.text =
+            '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}'
+        : endController.text = '';
+    plan.notification != null
+        ? notificationController.text =
+            '${plan.notification!.month}/${plan.notification!.day} ${plan.notification!.hour}:${plan.notification!.minute}'
+        : notificationController.text = '';
     belongingsController.text = plan.belongings ?? "";
     colorController.text = plan.color ?? "";
   }
@@ -49,6 +33,14 @@ class EditPlanModel extends ChangeNotifier {
   final notificationController = TextEditingController();
   final belongingsController = TextEditingController();
   final colorController = TextEditingController();
+
+  String? title;
+  String? content;
+  DateTime? start;
+  DateTime? end;
+  DateTime? notification;
+  String? belongings;
+  String? color;
 
   void setTitle(String title) {
     this.title = title;

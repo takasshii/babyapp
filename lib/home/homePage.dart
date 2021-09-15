@@ -1,3 +1,6 @@
+import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
+import 'package:babyapp/record/record/findRecord.dart';
+import 'package:babyapp/Diary/diary/findDiary.dart';
 import 'package:babyapp/ToDo/plans/findPlan.dart';
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
@@ -226,7 +229,77 @@ class HomePage extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
-                        //todo
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FindDiary()),
+                        );
+                      },
+                      child: Container(
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Icon(Icons.calendar_today, size: 70),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: Text(
+                                        'Diary',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: SizedBox(
+                                        width: 260,
+                                        child: Text(
+                                          "Record your diary and look-back on one's life with your baby.",
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.indigoAccent.withOpacity(0.9),
+                        onPrimary: Colors.white,
+                        minimumSize: Size(double.infinity, 100),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //3つ目ボタン
+                  Container(
+                    padding: EdgeInsets.only(top: 20),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FindRecord()),
+                        );
                       },
                       child: Container(
                         child: SizedBox(
@@ -285,7 +358,74 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //3つ目ボタン
+                  //4つ目ボタン
+                  Container(
+                    padding: EdgeInsets.only(top: 20),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FindGrowthRecord()),
+                        );
+                      },
+                      child: Container(
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Icon(Icons.calendar_today, size: 70),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: Text(
+                                        '成長曲線',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: SizedBox(
+                                        width: 260,
+                                        child: Text(
+                                          'Record your baby health and Make use of your baby medical check',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.redAccent.withOpacity(0.9),
+                        onPrimary: Colors.white,
+                        minimumSize: Size(double.infinity, 100),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //5つ目ボタン
                   Container(
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
@@ -352,7 +492,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //4つ目ボタン
+                  //5つ目ボタン
                   Container(
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
@@ -487,28 +627,25 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Center(
+                      child: Text(
+                        '©︎mwith',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
                   // ここに追加
                 ],
               ),
             ),
           );
         }),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
-            ),
-          ],
-        ),
       ),
     );
   }
