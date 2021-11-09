@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
               bottom: TabBar(
                 tabs: <Widget>[
                   Tab(
-                    child: Text('Login',
+                    child: Text('ログイン',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
