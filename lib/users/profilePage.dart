@@ -128,12 +128,13 @@ class ProfilePage extends StatelessWidget {
                             onPressed: () async {
                               await FirebaseAuth.instance.signOut();
                               // ログイン画面に遷移＋プロフィール画面を破棄
-                              await Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) {
-                                  return LoginPage();
-                                }),
-                              );
-                            }, //ここで設定開く
+                              await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()),
+                                  (_) => false);
+                            },
+                            //ここで設定開く
                           ),
                         ),
                       ),

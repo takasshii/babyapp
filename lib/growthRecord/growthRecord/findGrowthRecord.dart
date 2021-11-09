@@ -28,7 +28,7 @@ class FindGrowthRecord extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "ToDo",
+                "GrowthRecord",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -77,7 +77,6 @@ class FindGrowthRecord extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("折れ線グラフ"),
                       Expanded(
                         flex: 1,
                         child: Card(
@@ -105,7 +104,7 @@ class FindGrowthRecord extends StatelessWidget {
                         flex: 1,
                         child: Card(
                           child: Container(
-                            height: 500,
+                            height: 300,
                             padding: EdgeInsets.all(10),
                             child: PointsLineChartHeight.withSampleData(),
                           ),
@@ -165,10 +164,18 @@ class PointsLineChartWeight extends StatelessWidget {
 
   static List<charts.Series<LinearWeight, int>> _createSampleData() {
     final data = [
-      new LinearWeight(0, 5),
-      new LinearWeight(1, 25),
-      new LinearWeight(2, 100),
-      new LinearWeight(3, 75),
+      new LinearWeight(0, 2980),
+      new LinearWeight(1, 4780),
+      new LinearWeight(2, 5830),
+      new LinearWeight(3, 6630),
+      new LinearWeight(4, 7220),
+      new LinearWeight(5, 7670),
+      new LinearWeight(6, 8010),
+      new LinearWeight(7, 8300),
+      new LinearWeight(8, 8530),
+      new LinearWeight(9, 8730),
+      new LinearWeight(10, 8910),
+      new LinearWeight(11, 9090),
     ];
 
     return [

@@ -9,6 +9,12 @@ class SignUpModel extends ChangeNotifier {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  bool showPassword = false;
+  void togglePasswordVisible() {
+    showPassword = !showPassword;
+    notifyListeners();
+  }
+
   Future signUp() async {
     if (name.isEmpty) {
       throw ('名前を入力してください');

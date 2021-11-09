@@ -177,37 +177,39 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'Book Appointment',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Schedule an Appointment with our licenced professional.',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
+                                          'Book Appointment',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                            fontSize: 22,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: SizedBox(
+                                          width: 260,
+                                          child: Text(
+                                            'Schedule an Appointment with our licenced professional.',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -244,25 +246,24 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'Diary',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'Diary',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
                                           "Record your diary and look-back on one's life with your baby.",
                                           maxLines: 2,
@@ -273,8 +274,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -311,37 +312,38 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'Record',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Record your baby health and Make use of your baby medical check',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
+                                          'Record',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                            fontSize: 22,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: SizedBox(
+                                          child: Text(
+                                            'Record your baby health and Make use of your baby medical check',
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -378,27 +380,26 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        '成長曲線',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'GrowthRecord',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
-                                          'Record your baby health and Make use of your baby medical check',
+                                          "Record your baby's weight and height. You can check your baby growth easily.",
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -407,8 +408,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -445,25 +446,24 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'Blog',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'Blog',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
                                           "Search about information to live with your baby happily.",
                                           maxLines: 2,
@@ -474,8 +474,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -492,7 +492,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //5つ目ボタン
+                  //6つ目ボタン
                   Container(
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
@@ -512,25 +512,24 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'ToDo',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                               Flexible(
+                                 child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'ToDo',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Check and add your medical schedule about your baby.',
                                           maxLines: 2,
@@ -541,8 +540,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -559,7 +558,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  //5つ目ボタン
+                  //7つ目ボタン
                   Container(
                     padding: EdgeInsets.only(top: 20),
                     child: ElevatedButton(
@@ -580,25 +579,24 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        'Email Us',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
+                                        child: Text(
+                                          'Email Us',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4),
-                                      child: SizedBox(
-                                        width: 260,
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Send us an email and we will get back to you within 2 days.',
                                           maxLines: 2,
@@ -609,8 +607,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -628,7 +626,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(top: 12,bottom: 24),
                     child: Center(
                       child: Text(
                         '©︎mwith',

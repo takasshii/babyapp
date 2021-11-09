@@ -5,6 +5,7 @@ import 'package:babyapp/auth/login/loginModel.dart';
 import 'package:babyapp/auth/signUp/signUpModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -19,15 +20,19 @@ class LoginPage extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(250.0),
           child: Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(top: 50, left: 20, right: 20),
             child: AppBar(
               backgroundColor: Color(0xff181E27),
               flexibleSpace: Center(
                 child: Container(
-                  height: 130,
-                  width: 200,
-                  color: Colors.red,
-                ),
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        'mwith',
+                        style: GoogleFonts.lobster(
+                            color: Colors.white, fontSize: 60),
+                      ),
+                    )),
               ),
               bottom: TabBar(
                 tabs: <Widget>[
@@ -95,7 +100,7 @@ class LoginPage extends StatelessWidget {
                                 controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 style: TextStyle(color: Colors.white),
-                                obscureText: true,
+                                obscureText: !context.watch<LoginModel>().showPassword,
                                 decoration: InputDecoration(
                                   fillColor: Colors.black,
                                   filled: true,
@@ -107,8 +112,15 @@ class LoginPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.visibility_off),
-                                    onPressed: () {},
+
+                                    icon: Icon(context
+                                        .watch<LoginModel>()
+                                        .showPassword // パスワード表示状態を監視(watch)
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () => context
+                                        .read<LoginModel>()
+                                        .togglePasswordVisible(), // パスワード表示・非表示をトグルする
                                   ),
                                 ),
                               ),
@@ -180,7 +192,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 ChangeNotifierProvider<SignUpModel>(
                   create: (_) => SignUpModel(),
-                  child: Consumer<SignUpModel>(builder: (context, model, child) {
+                  child:
+                      Consumer<SignUpModel>(builder: (context, model, child) {
                     return Container(
                       padding: EdgeInsets.only(top: 10),
                       child: SingleChildScrollView(
@@ -239,7 +252,8 @@ class LoginPage extends StatelessWidget {
                                 },
                                 keyboardType: TextInputType.visiblePassword,
                                 style: TextStyle(color: Colors.white),
-                                obscureText: true,
+                                obscureText:
+                                    !context.watch<SignUpModel>().showPassword,
                                 decoration: InputDecoration(
                                   fillColor: Colors.black,
                                   filled: true,
@@ -251,8 +265,14 @@ class LoginPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: Icon(Icons.visibility_off),
-                                    onPressed: () {},
+                                    icon: Icon(context
+                                            .watch<SignUpModel>()
+                                            .showPassword // パスワード表示状態を監視(watch)
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () => context
+                                        .read<SignUpModel>()
+                                        .togglePasswordVisible(), // パスワード表示・非表示をトグルする
                                   ),
                                 ),
                               ),

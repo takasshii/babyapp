@@ -36,7 +36,7 @@ class FindRecord extends StatelessWidget {
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(
-                  child: Text('Login',
+                  child: Text('身長',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,

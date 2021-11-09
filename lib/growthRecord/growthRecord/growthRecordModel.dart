@@ -14,7 +14,7 @@ class PlanListModel extends ChangeNotifier {
 
     // SQL command literal
     final String createSql =
-        'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start TEXT, end TEXT, notification TEXT, belongings TEXT, color TEXT)';
+        'CREATE TABLE GrowthRecord (id INTEGER PRIMARY KEY AUTOINCREMENT, height_month INTEGER, height REAL, weight_month INTEGER, weight REAL, color TEXT)';
     WidgetsFlutterBinding.ensureInitialized();
     // Open or connect database
     final database = openDatabase(
@@ -26,7 +26,7 @@ class PlanListModel extends ChangeNotifier {
     );
 
     final db = await database;
-    final String insertSql = 'SELECT * FROM ToDo';
+    final String insertSql = 'SELECT * FROM GrowthRecord';
     final List<Map<String, dynamic>> maps = await db.rawQuery(insertSql);
     final List<ToDo> plans = List.generate(maps.length, (i) {
       final String title = maps[i]['title'];

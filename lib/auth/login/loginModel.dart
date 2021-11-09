@@ -7,6 +7,13 @@ class LoginModel extends ChangeNotifier {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  //パスワード表示切り替え
+  bool showPassword = false;
+  void togglePasswordVisible() {
+    showPassword = !showPassword;
+    notifyListeners();
+  }
+
   Future login() async {
     if (mail.isEmpty) {
       throw ('メールアドレスを入力してください');
