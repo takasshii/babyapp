@@ -1,0 +1,22 @@
+import 'package:babyapp/constants.dart';
+import 'package:babyapp/screens/home/components/title_with_custom_underline.dart';
+import 'package:babyapp/screens/home/components/title_with_more_btn.dart';
+import 'package:flutter/material.dart';
+
+import 'header_with_search_box.dart';
+
+class Body extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //横サイズを取得
+    Size size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          HeaderWithSearchBox(size: size),
+          TitleWithMoreBtn(title: "recomended", press: "more")
+        ],
+      ),
+    );
+  }
+}

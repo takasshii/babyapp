@@ -1,3 +1,4 @@
+import 'package:babyapp/appointments/selectCard.dart';
 import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
 import 'package:babyapp/record/record/findRecord.dart';
 import 'package:babyapp/Diary/diary/findDiary.dart';
@@ -566,7 +567,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BookAppointment()),
+                              builder: (context) => SelectCard()),
                         );
                       },
                       child: Container(
