@@ -8,7 +8,7 @@ class TitleWithMoreBtn extends StatelessWidget {
       : super(key: key);
 
   final String title;
-  final String press;
+  final void Function() press;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,9 @@ class TitleWithMoreBtn extends StatelessWidget {
                 backgroundColor: kPrimaryColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
-            onPressed: () {},
+            onPressed: press,
             child: Text(
-              press,
+              "more",
               style: TextStyle(color: Colors.white),
             ),
           ),

@@ -13,7 +13,7 @@ class SelectCard extends StatelessWidget {
   }
 
   AppBar buildAppbar() {
-    return AppBar(backgroundColor: kBackgroundColor,
+    return AppBar(
       elevation: 0,
       leading: IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),);
   }

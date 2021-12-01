@@ -1,5 +1,4 @@
-import 'package:babyapp/constants.dart';
-import 'package:babyapp/screens/home/components/title_with_custom_underline.dart';
+import 'package:babyapp/screens/home/components/select_menu_card.dart';
 import 'package:babyapp/screens/home/components/title_with_more_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,13 @@ class Body extends StatelessWidget {
       child: Column(
         children: [
           HeaderWithSearchBox(size: size),
-          TitleWithMoreBtn(title: "recomended", press: "more")
+          TitleWithMoreBtn(title: "recomended", press: () {}),
+          SelectMenuCard(
+            title: "たかっしー",
+            region: "Japan",
+            price: 440,
+            press: () {},
+          ),
         ],
       ),
     );
