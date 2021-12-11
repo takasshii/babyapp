@@ -5,7 +5,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditPlanPage extends StatelessWidget {
-  EditPlanPage(this.plan);
+  const EditPlanPage(this.plan);
   final ToDo plan;
 
   @override
@@ -84,7 +84,7 @@ class EditPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    maxTime: DateTime.now().add(Duration(days: 360)),
                                     onConfirm: (text) {
                                       model.setStart(text);
                                       model.start = text;
@@ -116,7 +116,7 @@ class EditPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    maxTime: DateTime.now().add(Duration(days: 360)),
                                     onConfirm: (text) {
                                       model.setEnd(text);
                                       model.end = text;
@@ -148,7 +148,7 @@ class EditPlanPage extends StatelessWidget {
                                 DatePicker.showDateTimePicker(context,
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now().add(new Duration(days: 360)),
+                                    maxTime: DateTime.now().add(Duration(days: 360)),
                                     onConfirm: (text) {
                                       model.setNotification(text);
                                       model.notification = text;

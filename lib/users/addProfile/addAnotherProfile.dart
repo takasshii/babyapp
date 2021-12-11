@@ -78,7 +78,7 @@ class AddAnotherProfile extends StatelessWidget {
                               DatePicker.showDatePicker(context,
                                   minTime: DateTime(2018, 1, 1),
                                   showTitleActions: true,
-                                  maxTime: DateTime.now().add(new Duration(days: 360)),
+                                  maxTime: DateTime.now().add(Duration(days: 360)),
                                   onConfirm: (text) {
                                     model.setBabyBirthDay(text);
                                     model.babyBirthDay = text;

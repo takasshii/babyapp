@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PlanDetail extends StatelessWidget {
-  PlanDetail(this.plan);
+  const PlanDetail(this.plan);
 
   final ToDo plan;
 

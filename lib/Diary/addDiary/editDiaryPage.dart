@@ -1,17 +1,18 @@
-import 'package:babyapp/record/addRecord/editRecordModel.dart';
-import 'package:babyapp/domain/toDo.dart';
+import 'package:babyapp/Diary/addDiary/editDiaryModel.dart';
+import 'package:babyapp/domain/diary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditPlanPage extends StatelessWidget {
-  const EditPlanPage(this.plan);
-  final ToDo plan;
+class EditDiaryPage extends StatelessWidget {
+  const EditDiaryPage(this.diary);
+
+  final Diary diary;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditPlanModel>(
-      create: (_) => EditPlanModel(plan),
+    return ChangeNotifierProvider<EditDiaryModel>(
+      create: (_) => EditDiaryModel(diary),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -21,7 +22,7 @@ class EditPlanPage extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "Edit ToDo",
+                "Edit Diary",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -42,7 +43,7 @@ class EditPlanPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<EditPlanModel>(
+        body: Consumer<EditDiaryModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Container(
@@ -78,87 +79,27 @@ class EditPlanPage extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.only(top: 20, right: 5),
                             child: TextFormField(
-                              controller: model.startController,
+                              controller: model.dayController,
                               onTap: () {
                                 //ドラムロール式の生年月日選択ができるようにする
-                                DatePicker.showDateTimePicker(context,
-                                    minTime: DateTime.now(),
+                                DatePicker.showDatePicker(context,
+                                    minTime: DateTime.now()
+                                        .add(Duration(days: 360) * (-1)),
                                     showTitleActions: true,
-                                    maxTime: DateTime.now().add(Duration(days: 360)),
+                                    maxTime: DateTime.now()
+                                        .add(Duration(days: 360)),
                                     onConfirm: (text) {
-                                      model.setStart(text);
-                                      model.start = text;
-                                    }, currentTime: model.start, locale: LocaleType.jp);
+                                  model.setDay(text);
+                                  model.day = text;
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.jp);
                               },
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 fillColor: Colors.black,
                                 filled: true,
-                                labelText: '開始時刻',
-                                labelStyle: TextStyle(
-                                  color: Color(0x98FFFFFF),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20, left: 5, right: 5),
-                            child: TextFormField(
-                              controller: model.endController,
-                              onTap: () {
-                                //ドラムロール式の生年月日選択ができるようにする
-                                DatePicker.showDateTimePicker(context,
-                                    minTime: DateTime.now(),
-                                    showTitleActions: true,
-                                    maxTime: DateTime.now().add(Duration(days: 360)),
-                                    onConfirm: (text) {
-                                      model.setEnd(text);
-                                      model.end = text;
-                                    }, currentTime: model.end, locale: LocaleType.jp);
-                              },
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                fillColor: Colors.black,
-                                filled: true,
-                                labelText: '終了時刻',
-                                labelStyle: TextStyle(
-                                  color: Color(0x98FFFFFF),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: Container(
-                            padding: EdgeInsets.only(top: 20, left: 5),
-                            child: TextFormField(
-                              controller: model.notificationController,
-                              onTap: () {
-                                //ドラムロール式で選択
-                                DatePicker.showDateTimePicker(context,
-                                    minTime: DateTime.now(),
-                                    showTitleActions: true,
-                                    maxTime: DateTime.now().add(Duration(days: 360)),
-                                    onConfirm: (text) {
-                                      model.setNotification(text);
-                                      model.notification = text;
-                                    }, currentTime: model.notification, locale: LocaleType.jp);
-                              },
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                fillColor: Colors.black,
-                                filled: true,
-                                labelText: '通知時間',
+                                labelText: '日付',
                                 labelStyle: TextStyle(
                                   color: Color(0x98FFFFFF),
                                 ),
@@ -170,28 +111,7 @@ class EditPlanPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        controller: model.belongingsController,
-                        onChanged: (text) {
-                          model.setBelongings(text);
-                        },
-                        keyboardType: TextInputType.name,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          fillColor: Colors.black,
-                          filled: true,
-                          labelText: '必要なもの',
-                          labelStyle: TextStyle(
-                            color: Color(0x98FFFFFF),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
+
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 20),

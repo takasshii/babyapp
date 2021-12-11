@@ -1,16 +1,13 @@
-import 'package:babyapp/Blog/addBlog/editBlogModel.dart';
-import 'package:babyapp/domain/blog.dart';
+import 'package:babyapp/Diary/addDiary/addDiaryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditBlogPage extends StatelessWidget {
-  const EditBlogPage(this.blog);
-  final Blog blog;
-
+class AddDiaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<EditBlogModel>(
-      create: (_) => EditBlogModel(blog),
+    return ChangeNotifierProvider<AddDiaryModel>(
+      create: (_) => AddDiaryModel(),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -20,7 +17,7 @@ class EditBlogPage extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 0),
               child: Text(
-                "Blog List",
+                "Diary",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -41,7 +38,7 @@ class EditBlogPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Color(0xff181E27),
-        body: Consumer<EditBlogModel>(
+        body: Consumer<AddDiaryModel>(
           builder: (context, model, child) {
             return SingleChildScrollView(
               child: Container(
@@ -49,18 +46,17 @@ class EditBlogPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 10),
                       child: TextFormField(
-                        controller: model.titleController,
                         onChanged: (text) {
-                          model.setTitle(text);
+                          model.title = text;
                         },
                         keyboardType: TextInputType.name,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           fillColor: Colors.black,
                           filled: true,
-                          labelText: 'title',
+                          labelText: 'タイトル',
                           labelStyle: TextStyle(
                             color: Color(0x98FFFFFF),
                           ),
@@ -70,34 +66,51 @@ class EditBlogPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(top: 20),
-                      child: TextFormField(
-                        controller: model.authorController,
-                        onChanged: (text) {
-                          model.setAuthor(text);
-                        },
-                        keyboardType: TextInputType.name,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          fillColor: Colors.black,
-                          filled: true,
-                          labelText: 'author',
-                          labelStyle: TextStyle(
-                            color: Color(0x98FFFFFF),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 20, right: 5),
+                            child: TextFormField(
+                              controller: model.dayController,
+                              onTap: () {
+                                //ドラムロール式の生年月日選択ができるようにする
+                                DatePicker.showDatePicker(context,
+                                    minTime: DateTime.now()
+                                        .add(Duration(days: 360) * (-1)),
+                                    showTitleActions: true,
+                                    maxTime: DateTime.now()
+                                        .add(Duration(days: 360)),
+                                    onConfirm: (text) {
+                                  model.setDay(text);
+                                  model.day = text;
+                                },
+                                    currentTime: DateTime.now(),
+                                    locale: LocaleType.jp);
+                              },
+                              style: TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                fillColor: Colors.black,
+                                filled: true,
+                                labelText: '日にち',
+                                labelStyle: TextStyle(
+                                  color: Color(0x98FFFFFF),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 20),
                       child: TextFormField(
-                        controller: model.contentController,
                         onChanged: (text) {
-                          model.setAuthor(text);
+                          model.content = text;
                         },
                         minLines: 10,
                         maxLines: null,
@@ -108,7 +121,7 @@ class EditBlogPage extends StatelessWidget {
                         decoration: InputDecoration(
                           fillColor: Colors.black,
                           filled: true,
-                          labelText: 'Content',
+                          labelText: '内容',
                           labelStyle: TextStyle(
                             color: Color(0x98FFFFFF),
                           ),
@@ -121,24 +134,21 @@ class EditBlogPage extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(top: 24),
                       child: ElevatedButton(
-                        onPressed: model.isUpdated()
-                            ? () async {
-                                // 追加の処理
-                                try {
-                                  await model.update();
-                                  Navigator.of(context).pop(model.title);
-                                } catch (e) {
-                                  final snackBar = SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(e.toString()),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                }
-                              }
-                            : null,
+                        onPressed: () async {
+                          try {
+                            await model.addPlan();
+                            Navigator.of(context).pop(true);
+                          } catch (e) {
+                            final snackBar = SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text(e.toString()),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
                         child: const Text(
-                          'Update',
+                          'Create New Plan',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,

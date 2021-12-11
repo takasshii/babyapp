@@ -80,7 +80,7 @@ class AddPlanPage extends StatelessWidget {
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
                                     maxTime: DateTime.now()
-                                        .add(new Duration(days: 360)),
+                                        .add(Duration(days: 360)),
                                     onConfirm: (text) {
                                   model.setStart(text);
                                   model.start = text;
@@ -115,7 +115,7 @@ class AddPlanPage extends StatelessWidget {
                                     minTime: DateTime.now(),
                                     showTitleActions: true,
                                     maxTime: DateTime.now()
-                                        .add(new Duration(days: 360)),
+                                        .add(Duration(days: 360)),
                                     onConfirm: (text) {
                                   model.setEnd(text);
                                   model.end = text;

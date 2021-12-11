@@ -10,12 +10,12 @@ class PlanListModel extends ChangeNotifier {
 
   //SqLiteでToDOテーブルとDiaryテーブル作成
   void fetchPlanList() async {
-    final databaseName = 'your_database.db';
+    const databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
     // SQL command literal
-    final String createDiarySql =
+    const String createDiarySql =
         'CREATE TABLE Diary (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, day TEXT, color TEXT)';
-    final String createToDoSql =
+    const String createToDoSql =
         'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start TEXT, end TEXT, notification TEXT, belongings TEXT, color TEXT)';
     WidgetsFlutterBinding.ensureInitialized();
     // Open or connect database
@@ -32,7 +32,7 @@ class PlanListModel extends ChangeNotifier {
 
     //SQLiteからToDoデータを取得
     final db = await database;
-    final String insertSql = 'SELECT * FROM ToDo';
+    const String insertSql = 'SELECT * FROM ToDo';
     final List<Map<String, dynamic>> maps = await db.rawQuery(insertSql);
     final List<ToDo> plans = List.generate(maps.length, (i) {
       final String title = maps[i]['title'];
@@ -76,7 +76,7 @@ class PlanListModel extends ChangeNotifier {
   //SQLiteでDelete
   // id=?とすると、SQLインジェクション対策になる
   Future delete(ToDo plan) async {
-    final databaseName = 'your_database.db';
+    const databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(
@@ -88,7 +88,8 @@ class PlanListModel extends ChangeNotifier {
       where: 'id = ?',
       whereArgs: [plan.id],
     );
-  }notifyListeners();
+  }@override
+  notifyListeners();
 }
 
 

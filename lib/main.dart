@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => AuthModel(),
-      child: MaterialApp(home: new RootPage(),
+      child: MaterialApp(home: RootPage(),
           debugShowCheckedModeBanner: false,
           title: 'mwith',
           theme: ThemeData(

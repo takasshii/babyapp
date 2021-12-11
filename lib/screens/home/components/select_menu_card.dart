@@ -60,7 +60,7 @@ class SelectMenuCard extends StatelessWidget {
                         text: "$title\n".toUpperCase(),
                         style: Theme.of(context).textTheme.button),
                     TextSpan(
-                        text: "$region",
+                        text: region,
                         style: TextStyle(
                           color: kPrimaryColor.withOpacity(0.5),
                         ))

@@ -1,18 +1,18 @@
-import 'package:babyapp/ToDo/addToDo/editPlanPage.dart';
-import 'package:babyapp/ToDo/plans/plansModel.dart';
-import 'package:babyapp/domain/toDo.dart';
+import 'package:babyapp/Diary/addDiary/editDiaryPage.dart';
+import 'package:babyapp/Diary/diary/diaryModel.dart';
+import 'package:babyapp/domain/diary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PlanDetail extends StatelessWidget {
-  const PlanDetail(this.plan);
+class DiaryDetail extends StatelessWidget {
+  const DiaryDetail(this.diary);
 
-  final ToDo plan;
+  final Diary diary;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<PlanListModel>(
-      create: (_) => PlanListModel()..fetchPlanList(),
+    return ChangeNotifierProvider<DiaryListModel>(
+      create: (_) => DiaryListModel()..fetchDiaryList(),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
@@ -32,7 +32,7 @@ class PlanDetail extends StatelessWidget {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 20),
-                child: Consumer<PlanListModel>(
+                child: Consumer<DiaryListModel>(
                   builder: (context, model, child) {
                     return PopupMenuButton(
                       itemBuilder: (context) => [
@@ -50,7 +50,7 @@ class PlanDetail extends StatelessWidget {
                           final String? title = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => EditPlanPage(plan),
+                              builder: (context) => EditDiaryPage(diary),
                             ),
                           );
                           if (title != null) {
@@ -62,10 +62,10 @@ class PlanDetail extends StatelessWidget {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           }
-                          model.fetchPlanList();
+                          model.fetchDiaryList();
                         }
                         if (result == 1) {
-                          showConfirmDialog(context, plan, model);
+                          showConfirmDialog(context, diary, model);
                         }
                       },
                     );
@@ -79,7 +79,7 @@ class PlanDetail extends StatelessWidget {
         backgroundColor: Color(0xff181E27),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(top: 10,left: 30, right: 30),
+            padding: EdgeInsets.only(top: 10, left: 30, right: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -96,21 +96,31 @@ class PlanDetail extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  width: double.infinity,
-                  //Statusを取得
-                  child: Text(
-                    plan.title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                plan.start != null
+                diary.day != null
+                    ? Container(
+                        padding: EdgeInsets.only(top: 10),
+                        width: double.infinity,
+                        //Statusを取得
+                        child: Text(
+                          diary.title != null ? diary.title! : 'なし',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      )
+                    : Text(
+                        '',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                diary.day != null
                     ? Column(
                         children: [
                           Container(
@@ -129,11 +139,11 @@ class PlanDetail extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              plan.start != null
+                              diary.day != null
                                   ? Padding(
                                       padding: const EdgeInsets.only(right: 4),
                                       child: Text(
-                                        '${plan.start!.month}/${plan.start!.day} ${plan.start!.hour}:${plan.start!.minute}',
+                                        '${diary.day!.year}/${diary.day!.month}/${diary.day!.day}',
                                         style: TextStyle(
                                           color: Colors.deepOrangeAccent,
                                           fontWeight: FontWeight.bold,
@@ -144,94 +154,14 @@ class PlanDetail extends StatelessWidget {
                                       ),
                                     )
                                   : Container(),
-                              plan.start != null
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 4),
-                                      child: Text(
-                                        '~',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 25,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )
-                                  : Container(),
-                              plan.end != null
-                                  ? Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, right: 4),
-                                        child: Text(
-                                          '${plan.end!.month}/${plan.end!.day} ${plan.end!.hour}:${plan.end!.minute}',
-                                          style: TextStyle(
-                                            color: Colors.deepOrangeAccent,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    )
-                                  : Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 8, right: 4),
-                                        child: Text(
-                                          '期限指定なし',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25,
-                                              color: Colors.deepOrangeAccent),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
                             ],
                           ),
                         ],
                       )
                     : Container(),
-                plan.belongings != null
-                    ? Column(
-                        children: [
-                          Container(
-                            //Statusを取得
-                            padding: EdgeInsets.only(top: 20),
-                            width: double.infinity,
-                            child: Text(
-                              "持ち物",
-                              style: TextStyle(
-                                color: Color(0x98FFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            width: double.infinity,
-                            //Statusを取得
-                            child: Text(
-                              plan.belongings!,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(),
+
                 //1つ目
-                plan.content != null
+                diary.content != null
                     ? Column(
                         children: [
                           Container(
@@ -253,43 +183,10 @@ class PlanDetail extends StatelessWidget {
                             width: double.infinity,
                             //Statusを取得
                             child: Text(
-                              plan.content!,
+                              diary.content!,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container(),
-                plan.notification != null
-                    ? Column(
-                        children: [
-                          Container(
-                            //Statusを取得
-                            padding: EdgeInsets.only(top: 20),
-                            width: double.infinity,
-                            child: Text(
-                              "通知時間",
-                              style: TextStyle(
-                                color: Color(0x98FFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 10),
-                            width: double.infinity,
-                            //Statusを取得
-                            child: Text(
-                              '${plan.notification!.hour}:${plan.notification!.minute}',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
                               ),
                               textAlign: TextAlign.left,
                             ),
@@ -323,8 +220,8 @@ class PlanDetail extends StatelessWidget {
 
   Future showConfirmDialog(
     BuildContext context,
-    ToDo plan,
-    PlanListModel model,
+    Diary diary,
+    DiaryListModel model,
   ) {
     return showDialog(
       context: context,
@@ -332,7 +229,9 @@ class PlanDetail extends StatelessWidget {
       builder: (_) {
         return AlertDialog(
           title: Text("削除の確認"),
-          content: Text("『${plan.title}』を削除しますか？"),
+          content: diary.title != null
+              ? Text("「${diary.title}」を削除しますか？")
+              : Text('この日記を削除しますか？'),
           actions: [
             TextButton(
               child: Text("いいえ"),
@@ -342,12 +241,12 @@ class PlanDetail extends StatelessWidget {
               child: Text("はい"),
               onPressed: () async {
                 // modelで削除
-                await model.delete(plan);
+                await model.delete(diary);
                 Navigator.pop(context);
                 Navigator.pop(context);
                 final snackBar = SnackBar(
                   backgroundColor: Colors.red,
-                  content: Text('${plan.title}を削除しました'),
+                  content: Text('${diary.title}を削除しました'),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },

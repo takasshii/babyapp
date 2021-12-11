@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class EditProfile extends StatelessWidget {
   final UserDetail user;
-  EditProfile(this.user);
+  const EditProfile(this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +190,7 @@ class EditProfile extends StatelessWidget {
                                 minTime: DateTime(2018, 1, 1),
                                 showTitleActions: true,
                                 maxTime:
-                                    DateTime.now().add(new Duration(days: 360)),
+                                    DateTime.now().add(Duration(days: 360)),
                                 onConfirm: (text) {
                               model.setBabyBirthDay(text);
                               model.babyBirthDay = text;

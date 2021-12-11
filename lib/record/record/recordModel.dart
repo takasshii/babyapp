@@ -9,11 +9,11 @@ class PlanListModel extends ChangeNotifier {
   List<ToDo>? plans;
 
   void fetchPlanList() async {
-    final databaseName = 'your_database.db';
+    const databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
 
     // SQL command literal
-    final String createSql =
+    const String createSql =
         'CREATE TABLE ToDo (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT, start TEXT, end TEXT, notification TEXT, belongings TEXT, color TEXT)';
     WidgetsFlutterBinding.ensureInitialized();
     // Open or connect database
@@ -26,7 +26,7 @@ class PlanListModel extends ChangeNotifier {
     );
 
     final db = await database;
-    final String insertSql = 'SELECT * FROM ToDo';
+    const String insertSql = 'SELECT * FROM ToDo';
     final List<Map<String, dynamic>> maps = await db.rawQuery(insertSql);
     final List<ToDo> plans = List.generate(maps.length, (i) {
       final String title = maps[i]['title'];
@@ -52,7 +52,7 @@ class PlanListModel extends ChangeNotifier {
   }
 
   Future delete(ToDo plan) async {
-    final databaseName = 'your_database.db';
+    const databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(

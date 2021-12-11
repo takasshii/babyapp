@@ -71,7 +71,7 @@ class EditProfileModel extends ChangeNotifier {
     final year = babyBirthDay.year.toString();
     final month = babyBirthDay.month.toString();
     final day = babyBirthDay.day.toString();
-    this.babyBirthController.text = '$year/$month/$day';
+    babyBirthController.text = '$year/$month/$day';
     notifyListeners();
   }
 
@@ -83,10 +83,10 @@ class EditProfileModel extends ChangeNotifier {
   Future update() async {
     final firebaseCurrentUser = AuthModel().user;
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    this.name = nameController.text;
-    this.email = emailController.text;
-    this.babyName = babyNameController.text;
-    this.babyBirthDay = babyBirthDay;
+    name = nameController.text;
+    email = emailController.text;
+    babyName = babyNameController.text;
+    babyBirthDay = babyBirthDay;
     final imageURL = await _uploadImage();
     await firebaseCurrentUser!.updateEmail(email!);
     final userDetailList =

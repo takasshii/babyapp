@@ -6,7 +6,6 @@ class AddBlogModel extends ChangeNotifier {
   String? author;
   String? content;
 
-
   Future addBlog() async {
     if (title == null || title!.isEmpty) {
       throw Exception("titleが入力されていません");
@@ -22,6 +21,7 @@ class AddBlogModel extends ChangeNotifier {
       'title': title,
       'author': author,
       'content': content,
+      'updatedAt': FieldValue.serverTimestamp(),
     });
   }
 }

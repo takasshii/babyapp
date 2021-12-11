@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BlogDetail extends StatelessWidget {
-  BlogDetail(this.blog);
+  const BlogDetail(this.blog);
   final Blog blog;
 
   @override

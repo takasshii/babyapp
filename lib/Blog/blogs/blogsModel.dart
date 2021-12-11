@@ -6,8 +6,11 @@ class BlogListModel extends ChangeNotifier {
   List<Blog>? blogs;
 
   void fetchBlogList() async {
-    final QuerySnapshot snapshot =
-    await FirebaseFirestore.instance.collection('blogs').get();
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('blogs')
+        .orderBy('updatedAt', descending: true)
+        .limit(10)
+        .get();
 
     final List<Blog> blogs = snapshot.docs.map((DocumentSnapshot document) {
       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -15,7 +18,8 @@ class BlogListModel extends ChangeNotifier {
       final String author = data['author'];
       final String content = data['content'];
       final String id = document.id;
-      return Blog(id, title, author, content);
+      final DateTime updatedAt = data["updatedAt"].toDate();
+      return Blog(id, title, author, content, updatedAt);
     }).toList();
 
     this.blogs = blogs;

@@ -152,10 +152,10 @@ class PointsLineChartWeight extends StatelessWidget {
   final List<charts.Series<dynamic, num>> weightList;
   final bool? animate;
 
-  PointsLineChartWeight(this.weightList, {this.animate});
+  const PointsLineChartWeight(this.weightList, {this.animate});
 
   factory PointsLineChartWeight.withSampleData() {
-    return new PointsLineChartWeight(
+    return PointsLineChartWeight(
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
@@ -164,22 +164,22 @@ class PointsLineChartWeight extends StatelessWidget {
 
   static List<charts.Series<LinearWeight, int>> _createSampleData() {
     final data = [
-      new LinearWeight(0, 2980),
-      new LinearWeight(1, 4780),
-      new LinearWeight(2, 5830),
-      new LinearWeight(3, 6630),
-      new LinearWeight(4, 7220),
-      new LinearWeight(5, 7670),
-      new LinearWeight(6, 8010),
-      new LinearWeight(7, 8300),
-      new LinearWeight(8, 8530),
-      new LinearWeight(9, 8730),
-      new LinearWeight(10, 8910),
-      new LinearWeight(11, 9090),
+      LinearWeight(0, 2980),
+      LinearWeight(1, 4780),
+      LinearWeight(2, 5830),
+      LinearWeight(3, 6630),
+      LinearWeight(4, 7220),
+      LinearWeight(5, 7670),
+      LinearWeight(6, 8010),
+      LinearWeight(7, 8300),
+      LinearWeight(8, 8530),
+      LinearWeight(9, 8730),
+      LinearWeight(10, 8910),
+      LinearWeight(11, 9090),
     ];
 
     return [
-      new charts.Series<LinearWeight, int>(
+      charts.Series<LinearWeight, int>(
         id: 'weight',
         colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blue),
         domainFn: (LinearWeight weight, _) => weight.day,
@@ -191,9 +191,9 @@ class PointsLineChartWeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(weightList,
+    return charts.LineChart(weightList,
         animate: animate,
-        defaultRenderer: new charts.LineRendererConfig(includePoints: true));
+        defaultRenderer: charts.LineRendererConfig(includePoints: true));
   }
 }
 
@@ -211,10 +211,10 @@ class PointsLineChartHeight extends StatelessWidget {
   final List<charts.Series<dynamic, num>> heightList;
   final bool? animate;
 
-  PointsLineChartHeight(this.heightList, {this.animate});
+  const PointsLineChartHeight(this.heightList, {this.animate});
 
   factory PointsLineChartHeight.withSampleData() {
-    return new PointsLineChartHeight(
+    return PointsLineChartHeight(
       _createSampleData(),
       // Disable animations for image tests.
       animate: false,
@@ -223,14 +223,14 @@ class PointsLineChartHeight extends StatelessWidget {
 
   static List<charts.Series<LinearHeight, int>> _createSampleData() {
     final data = [
-      new LinearHeight(0, 5),
-      new LinearHeight(1, 25),
-      new LinearHeight(2, 100),
-      new LinearHeight(3, 75),
+      LinearHeight(0, 5),
+      LinearHeight(1, 25),
+      LinearHeight(2, 100),
+      LinearHeight(3, 75),
     ];
 
     return [
-      new charts.Series<LinearHeight, int>(
+      charts.Series<LinearHeight, int>(
         id: 'weight',
         colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blue),
         domainFn: (LinearHeight height, _) => height.day,
@@ -242,9 +242,9 @@ class PointsLineChartHeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(heightList,
+    return charts.LineChart(heightList,
         animate: animate,
-        defaultRenderer: new charts.LineRendererConfig(includePoints: true));
+        defaultRenderer: charts.LineRendererConfig(includePoints: true));
   }
 }
 

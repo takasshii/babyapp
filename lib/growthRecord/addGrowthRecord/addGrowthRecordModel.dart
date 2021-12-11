@@ -20,9 +20,9 @@ class AddPlanModel extends ChangeNotifier {
     final day = start.day.toString();
     final hour = start.hour.toString();
     final minute = start.minute.toString();
-    this.startController.text = '$month/$day $hour:$minute';
+    startController.text = '$month/$day $hour:$minute';
     if (end == null || start.isAfter(end!)) {
-      this.end = start.add(Duration(minutes: 10));
+      end = start.add(Duration(minutes: 10));
       setEnd(end!);
     }
     notifyListeners();
@@ -33,9 +33,9 @@ class AddPlanModel extends ChangeNotifier {
     final day = end.day.toString();
     final hour = end.hour.toString();
     final minute = end.minute.toString();
-    this.endController.text = '$month/$day $hour:$minute';
+    endController.text = '$month/$day $hour:$minute';
     if (start == null || start!.isAfter(end)) {
-      this.start = end.add(Duration(minutes: 10) * -1);
+      start = end.add(Duration(minutes: 10) * -1);
       setStart(start!);
     }
     notifyListeners();
@@ -46,7 +46,7 @@ class AddPlanModel extends ChangeNotifier {
     final day = notification.day.toString();
     final hour = notification.hour.toString();
     final minute = notification.minute.toString();
-    this.notificationController.text = '$month/$day $hour:$minute';
+    notificationController.text = '$month/$day $hour:$minute';
     notifyListeners();
   }
 
@@ -59,14 +59,14 @@ class AddPlanModel extends ChangeNotifier {
       throw Exception("titleが入力されていません");
     }
 
-    final databaseName = 'your_database.db';
+    const databaseName = 'your_database.db';
     final databasePath = await getDatabasesPath();
     WidgetsFlutterBinding.ensureInitialized();
     final database = openDatabase(
       join(databasePath, databaseName),
     );
     final db = await database;
-    final String tableName = 'ToDo';
+    const String tableName = 'ToDo';
     Map<String, dynamic> record = {
       'title': title,
       'content': content,

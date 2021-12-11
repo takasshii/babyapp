@@ -17,7 +17,7 @@ class AddBAnotherProfileModel extends ChangeNotifier {
     final year = babyBirthDay.year.toString();
     final month = babyBirthDay.month.toString();
     final day = babyBirthDay.day.toString();
-    this.birthController.text = '$year/$month/$day';
+    birthController.text = '$year/$month/$day';
     notifyListeners();
   }
 
