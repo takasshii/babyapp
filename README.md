@@ -2,12 +2,12 @@
 
 産後ケアのためのアプリです。
 
-#使用技術
+# 使用技術
 Flutter
 Firebase
 CloudFireStore
 FirebaseAuth
-SQfLite
+sqflite
 
 ## Getting Started
 
