@@ -1,6 +1,13 @@
-# babyapp
+# mwith
 
-A new Flutter project.
+産後ケアのためのアプリです。
+
+# 使用技術
+Flutter
+Firebase
+CloudFireStore
+FirebaseAuth
+sqflite
 
 ## Getting Started
 
