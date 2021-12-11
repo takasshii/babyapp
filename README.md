@@ -2,6 +2,13 @@
 
 産後ケアのためのアプリです。
 
+#使用技術
+Flutter
+Firebase
+CloudFireStore
+FirebaseAuth
+SQfLite
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
