@@ -1,13 +1,14 @@
-import 'package:babyapp/appointments/selectCard.dart';
-import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
-import 'package:babyapp/record/record/findRecord.dart';
+import 'package:babyapp/Blog/blogs/findBlog.dart';
 import 'package:babyapp/Diary/diary/findDiary.dart';
 import 'package:babyapp/ToDo/plans/findPlan.dart';
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
-import 'package:babyapp/Blog/blogs/findBlog.dart';
+import 'package:babyapp/appointments/selectCard.dart';
 import 'package:babyapp/domain/user.dart';
-import 'package:babyapp/home/homeModel.dart';
+import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
+import 'package:babyapp/record/record/findRecord.dart';
+import 'package:babyapp/screens/home/components/appbar_with_icons.dart';
+import 'package:babyapp/screens/home/homeModel.dart';
 import 'package:babyapp/users/profilePage.dart';
 import 'package:babyapp/users/userModel.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return MultiProvider(
       providers: [
         ListenableProvider<UserModel>(
@@ -23,54 +26,23 @@ class HomePage extends StatelessWidget {
         ListenableProvider<HomeModel>(create: (_) => HomeModel()..fetchTime()),
       ],
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
-          child: AppBar(
-            centerTitle: false,
-            backgroundColor: Color(0xff181E27),
-            leading: Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: IconButton(
-                icon: Icon(Icons.account_circle),
-                iconSize: 30,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => (ProfilePage())));
-                }, //ここで設定開く
-              ),
-            ),
-            title: Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                "Home",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: IconButton(
-                  icon: Icon(Icons.baby_changing_station), //ここにロゴ置く
-                  iconSize: 30,
-                  onPressed: () {}, //ここで設定開く
-                ),
-              ),
-            ],
-            elevation: 0.0,
-          ),
+        appBar: appbar_with_icons(
+          title: 'Home',
+          press_left_icon: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => (ProfilePage())));
+          },
+          press_right_icon: () {},
         ),
-        backgroundColor: Color(0xff181E27),
+        backgroundColor: const Color(0xff181E27),
         body: Consumer<UserModel>(builder: (context, model, child) {
           final UserDetail? user = model.userDetailList;
           if (user == null) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: const CircularProgressIndicator());
           }
           return SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
                   Container(
@@ -80,11 +52,12 @@ class HomePage extends StatelessWidget {
                       builder: (context, model, child) {
                         final greeting = model.greeting;
                         if (greeting == null) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: const CircularProgressIndicator());
                         }
                         return Text(
                           greeting,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 32,
@@ -100,7 +73,7 @@ class HomePage extends StatelessWidget {
                         //名前を取得
                         child: Text(
                           "${user.name}さん",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 32,
@@ -110,7 +83,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Container(
                         //名前を取得
-                        child: Text(
+                        child: const Text(
                           "👋",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -125,16 +98,17 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     width: double.infinity,
-                    child: Text(
+                    child: const Text(
                       "Your next appointment",
                       style: TextStyle(color: Color(0x98FFFFFF), fontSize: 18),
                       textAlign: TextAlign.left,
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -153,13 +127,13 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 60),
+                        minimumSize: const Size(double.infinity, 60),
                       ),
                     ),
                   ),
                   //1つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -174,19 +148,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
                                 child: Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
+                                        child: const Text(
                                           'Book Appointment',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -194,9 +169,9 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: SizedBox(
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
+                                        child: const SizedBox(
                                           width: 260,
                                           child: Text(
                                             'Schedule an Appointment with our licenced professional.',
@@ -220,7 +195,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.greenAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -229,7 +204,7 @@ class HomePage extends StatelessWidget {
                   ),
                   //2つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -243,18 +218,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Diary',
                                           style: TextStyle(
@@ -263,8 +240,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           "Record your diary and look-back on one's life with your baby.",
                                           maxLines: 2,
@@ -286,7 +263,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.indigoAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -295,7 +272,7 @@ class HomePage extends StatelessWidget {
                   ),
                   //3つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -309,19 +286,21 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
+                                        child: const Text(
                                           'Record',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -329,8 +308,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: SizedBox(
                                           child: Text(
                                             'Record your baby health and Make use of your baby medical check',
@@ -354,7 +333,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.deepPurpleAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -363,12 +342,13 @@ class HomePage extends StatelessWidget {
                   ),
                   //4つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FindGrowthRecord()),
+                          MaterialPageRoute(
+                              builder: (context) => FindGrowthRecord()),
                         );
                       },
                       child: Container(
@@ -377,18 +357,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'GrowthRecord',
                                           style: TextStyle(
@@ -397,13 +379,13 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
+                                        child: const Text(
                                           "Record your baby's weight and height. You can check your baby growth easily.",
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,
                                           ),
@@ -420,7 +402,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.redAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -429,7 +411,7 @@ class HomePage extends StatelessWidget {
                   ),
                   //5つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -443,18 +425,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Blog',
                                           style: TextStyle(
@@ -463,8 +447,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           "Search about information to live with your baby happily.",
                                           maxLines: 2,
@@ -486,7 +470,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.deepOrangeAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -495,7 +479,7 @@ class HomePage extends StatelessWidget {
                   ),
                   //6つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -509,18 +493,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
-                               Flexible(
-                                 child: Padding(
+                              Flexible(
+                                child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'ToDo',
                                           style: TextStyle(
@@ -529,8 +515,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Check and add your medical schedule about your baby.',
                                           maxLines: 2,
@@ -552,7 +538,7 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pinkAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -561,13 +547,12 @@ class HomePage extends StatelessWidget {
                   ),
                   //7つ目ボタン
                   Container(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SelectCard()),
+                          MaterialPageRoute(builder: (context) => SelectCard()),
                         );
                       },
                       child: Container(
@@ -576,18 +561,20 @@ class HomePage extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child:
+                                    const Icon(Icons.calendar_today, size: 70),
                               ),
                               Flexible(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Email Us',
                                           style: TextStyle(
@@ -596,8 +583,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
+                                      const Padding(
+                                        padding: EdgeInsets.only(top: 4),
                                         child: Text(
                                           'Send us an email and we will get back to you within 2 days.',
                                           maxLines: 2,
@@ -619,17 +606,17 @@ class HomePage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: Colors.redAccent.withOpacity(0.9),
                         onPrimary: Colors.white,
-                        minimumSize: Size(double.infinity, 100),
+                        minimumSize: const Size(double.infinity, 100),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12,bottom: 24),
-                    child: Center(
-                      child: Text(
+                  const Padding(
+                    padding: EdgeInsets.only(top: 12, bottom: 24),
+                    child: const Center(
+                      child: const Text(
                         '©︎mwith',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,

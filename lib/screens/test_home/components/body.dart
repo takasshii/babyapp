@@ -1,5 +1,5 @@
-import 'package:babyapp/screens/home/components/select_menu_card.dart';
-import 'package:babyapp/screens/home/components/title_with_more_btn.dart';
+import 'package:babyapp/screens/test_home/components/select_menu_card.dart';
+import 'package:babyapp/screens/test_home/components/title_with_more_btn.dart';
 import 'package:flutter/material.dart';
 
 import 'header_with_search_box.dart';

@@ -1,11 +1,11 @@
-import 'package:babyapp/users/addProfile/addAnotherProfile.dart';
 import 'package:babyapp/auth/login/forgotPassword.dart';
-import 'package:babyapp/home/homePage.dart';
 import 'package:babyapp/auth/login/loginModel.dart';
 import 'package:babyapp/auth/signUp/signUpModel.dart';
+import 'package:babyapp/screens/home/homePage.dart';
+import 'package:babyapp/users/addProfile/addAnotherProfile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -100,7 +100,8 @@ class LoginPage extends StatelessWidget {
                                 controller: passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 style: TextStyle(color: Colors.white),
-                                obscureText: !context.watch<LoginModel>().showPassword,
+                                obscureText:
+                                    !context.watch<LoginModel>().showPassword,
                                 decoration: InputDecoration(
                                   fillColor: Colors.black,
                                   filled: true,
@@ -112,10 +113,9 @@ class LoginPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   suffixIcon: IconButton(
-
                                     icon: Icon(context
-                                        .watch<LoginModel>()
-                                        .showPassword // パスワード表示状態を監視(watch)
+                                            .watch<LoginModel>()
+                                            .showPassword // パスワード表示状態を監視(watch)
                                         ? Icons.visibility
                                         : Icons.visibility_off),
                                     onPressed: () => context
