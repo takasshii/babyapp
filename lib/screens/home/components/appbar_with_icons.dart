@@ -19,7 +19,7 @@ class appbar_with_icons extends StatelessWidget with PreferredSizeWidget {
       preferredSize: const Size.fromHeight(60.0),
       child: AppBar(
         centerTitle: false,
-        backgroundColor: kBackgroundColor,
+        backgroundColor: Colors.transparent,
         leading: Padding(
           padding: const EdgeInsets.only(left: kDefaultPadding),
           child: IconButton(

@@ -4,6 +4,7 @@ import 'package:babyapp/ToDo/plans/findPlan.dart';
 import 'package:babyapp/appointments/bookAppointment.dart';
 import 'package:babyapp/appointments/myAppointment.dart';
 import 'package:babyapp/appointments/selectCard.dart';
+import 'package:babyapp/constants.dart';
 import 'package:babyapp/domain/user.dart';
 import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
 import 'package:babyapp/record/record/findRecord.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatelessWidget {
           },
           press_right_icon: () {},
         ),
-        backgroundColor: const Color(0xff181E27),
+        backgroundColor: kBackgroundColor,
         body: Consumer<UserModel>(builder: (context, model, child) {
           final UserDetail? user = model.userDetailList;
           if (user == null) {
@@ -45,58 +46,7 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    //時間帯で変わるようにする
-                    child: Consumer<HomeModel>(
-                      builder: (context, model, child) {
-                        final greeting = model.greeting;
-                        if (greeting == null) {
-                          return const Center(
-                              child: const CircularProgressIndicator());
-                        }
-                        return Text(
-                          greeting,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 32,
-                          ),
-                          textAlign: TextAlign.left,
-                        );
-                      },
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        //名前を取得
-                        child: Text(
-                          "${user.name}さん",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 32,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      Container(
-                        //名前を取得
-                        child: const Text(
-                          "👋",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 32,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ),
+                  show_name_and_greeting(user),
                   Container(
                     padding: const EdgeInsets.only(top: 20),
                     width: double.infinity,
@@ -131,6 +81,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   //1つ目ボタン
                   Container(
                     padding: const EdgeInsets.only(top: 20),
@@ -633,6 +584,64 @@ class HomePage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Column show_name_and_greeting(UserDetail user) {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          //時間帯で変わるようにする
+          child: Consumer<HomeModel>(
+            builder: (context, model, child) {
+              final greeting = model.greeting;
+              if (greeting == null) {
+                return const Center(child: const CircularProgressIndicator());
+              }
+              return Text(
+                greeting,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
+                textAlign: TextAlign.left,
+              );
+            },
+          ),
+        ),
+        Row(
+          children: [
+            Container(
+              //名前を取得
+              child: Text(
+                "${user.name}さん",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Container(
+              //名前を取得
+              child: const Text(
+                "👋",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
