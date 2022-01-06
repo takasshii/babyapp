@@ -15,6 +15,8 @@ import 'package:babyapp/users/userModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'components/show_name_and_greeting.dart';
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,41 +48,8 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Column(
                 children: [
-                  show_name_and_greeting(user),
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    width: double.infinity,
-                    child: const Text(
-                      "Your next appointment",
-                      style: TextStyle(color: Color(0x98FFFFFF), fontSize: 18),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  Container(
-                    padding:
-                        const EdgeInsets.only(top: 20, left: 20, right: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyAppointment()),
-                        );
-                      },
-                      child: const Text(
-                        'No Upcoming Appointments!',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 60),
-                      ),
-                    ),
-                  ),
+                  show_name_and_greeting(user: user),
+                  appointment_checker(context),
 
                   //1つ目ボタン
                   Container(
@@ -587,59 +556,40 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Column show_name_and_greeting(UserDetail user) {
+  Column appointment_checker(BuildContext context) {
     return Column(
       children: [
         Container(
+          padding: const EdgeInsets.only(top: 20),
           width: double.infinity,
-          //時間帯で変わるようにする
-          child: Consumer<HomeModel>(
-            builder: (context, model, child) {
-              final greeting = model.greeting;
-              if (greeting == null) {
-                return const Center(child: const CircularProgressIndicator());
-              }
-              return Text(
-                greeting,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
-                textAlign: TextAlign.left,
-              );
-            },
+          child: const Text(
+            "Your next appointment",
+            style: TextStyle(color: Color(0x98FFFFFF), fontSize: 18),
+            textAlign: TextAlign.left,
           ),
         ),
-        Row(
-          children: [
-            Container(
-              //名前を取得
-              child: Text(
-                "${user.name}さん",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
-                textAlign: TextAlign.left,
+        Container(
+          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyAppointment()),
+              );
+            },
+            child: const Text(
+              'No Upcoming Appointments!',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
               ),
             ),
-            Container(
-              //名前を取得
-              child: const Text(
-                "👋",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                ),
-                textAlign: TextAlign.left,
-              ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.black,
+              onPrimary: Colors.white,
+              minimumSize: const Size(double.infinity, 60),
             ),
-          ],
+          ),
         ),
       ],
     );
