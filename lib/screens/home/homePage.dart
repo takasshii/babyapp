@@ -10,6 +10,7 @@ import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
 import 'package:babyapp/record/record/findRecord.dart';
 import 'package:babyapp/screens/home/components/appbar_with_icons.dart';
 import 'package:babyapp/screens/home/components/appointment_checker.dart';
+import 'package:babyapp/screens/home/components/home_main_button.dart';
 import 'package:babyapp/screens/home/homeModel.dart';
 import 'package:babyapp/users/profilePage.dart';
 import 'package:babyapp/users/userModel.dart';
@@ -60,486 +61,97 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //1つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BookAppointment()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: const Text(
-                                          'Book Appointment',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: const SizedBox(
-                                          width: 260,
-                                          child: Text(
-                                            'Schedule an Appointment with our licenced professional.',
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.greenAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'Book Appointment',
+                    description:
+                        'Schedule an Appointment with our licenced professional.',
+                    color: Colors.greenAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookAppointment()),
+                      );
+                    },
                   ),
                   //2つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FindDiary()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'Diary',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          "Record your diary and look-back on one's life with your baby.",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.indigoAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'Diary',
+                    description:
+                        "Record your diary and look-back on one's life with your baby.",
+                    color: Colors.indigoAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FindDiary()),
+                      );
+                    },
                   ),
                   //3つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FindRecord()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: const Text(
-                                          'Record',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: SizedBox(
-                                          child: Text(
-                                            'Record your baby health and Make use of your baby medical check',
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.deepPurpleAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'Record',
+                    description:
+                        'Record your baby health and Make use of your baby medical check',
+                    color: Colors.deepPurpleAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FindRecord()),
+                      );
+                    },
                   ),
                   //4つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FindGrowthRecord()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'GrowthRecord',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: const Text(
-                                          "Record your baby's weight and height. You can check your baby growth easily.",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.redAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'GrowthRecord',
+                    description:
+                        "Record your baby's weight and height. You can check your baby growth easily.",
+                    color: Colors.redAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FindGrowthRecord()),
+                      );
+                    },
                   ),
                   //5つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FindBlog()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'Blog',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          "Search about information to live with your baby happily.",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.deepOrangeAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'Blog',
+                    description:
+                        "Search about information to live with your baby happily.",
+                    color: Colors.deepOrangeAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FindBlog()),
+                      );
+                    },
                   ),
                   //6つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => FindPlan()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'ToDo',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'Check and add your medical schedule about your baby.',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.pinkAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'ToDo',
+                    description:
+                        'Check and add your medical schedule about your baby.',
+                    color: Colors.pinkAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FindPlan()),
+                      );
+                    },
                   ),
                   //7つ目ボタン
-                  Container(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SelectCard()),
-                        );
-                      },
-                      child: Container(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child:
-                                    const Icon(Icons.calendar_today, size: 70),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'Email Us',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 22,
-                                          ),
-                                        ),
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          'Send us an email and we will get back to you within 2 days.',
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.redAccent.withOpacity(0.9),
-                        onPrimary: Colors.white,
-                        minimumSize: const Size(double.infinity, 100),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
+                  home_main_button(
+                    title: 'Email Us',
+                    description:
+                        'Send us an email and we will get back to you within 2 days.',
+                    color: Colors.redAccent.withOpacity(0.9),
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SelectCard()),
+                      );
+                    },
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 12, bottom: 24),
