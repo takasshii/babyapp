@@ -9,6 +9,7 @@ import 'package:babyapp/domain/user.dart';
 import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
 import 'package:babyapp/record/record/findRecord.dart';
 import 'package:babyapp/screens/home/components/appbar_with_icons.dart';
+import 'package:babyapp/screens/home/components/appointment_checker.dart';
 import 'package:babyapp/screens/home/homeModel.dart';
 import 'package:babyapp/users/profilePage.dart';
 import 'package:babyapp/users/userModel.dart';
@@ -49,8 +50,15 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   show_name_and_greeting(user: user),
-                  appointment_checker(context),
-
+                  appointment_checker(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyAppointment()),
+                      );
+                    },
+                  ),
                   //1つ目ボタン
                   Container(
                     padding: const EdgeInsets.only(top: 20),
@@ -553,45 +561,6 @@ class HomePage extends StatelessWidget {
           );
         }),
       ),
-    );
-  }
-
-  Column appointment_checker(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.only(top: 20),
-          width: double.infinity,
-          child: const Text(
-            "Your next appointment",
-            style: TextStyle(color: Color(0x98FFFFFF), fontSize: 18),
-            textAlign: TextAlign.left,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyAppointment()),
-              );
-            },
-            child: const Text(
-              'No Upcoming Appointments!',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: Colors.black,
-              onPrimary: Colors.white,
-              minimumSize: const Size(double.infinity, 60),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
