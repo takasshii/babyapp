@@ -1,8 +1,8 @@
 import 'package:babyapp/constants.dart';
 import 'package:flutter/material.dart';
 
-class home_main_button extends StatelessWidget {
-  const home_main_button(
+class HomeMainButton extends StatelessWidget {
+  const HomeMainButton(
       {Key? key,
       required this.press,
       required this.title,

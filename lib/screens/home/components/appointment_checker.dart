@@ -1,8 +1,8 @@
 import 'package:babyapp/constants.dart';
 import 'package:flutter/material.dart';
 
-class appointment_checker extends StatelessWidget {
-  const appointment_checker({Key? key, required this.press}) : super(key: key);
+class AppointmentChecker extends StatelessWidget {
+  const AppointmentChecker({Key? key, required this.press}) : super(key: key);
 
   final void Function() press;
 
@@ -20,10 +20,8 @@ class appointment_checker extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(
-              top: kDefaultPadding,
-              left: kDefaultPadding,
-              right: kDefaultPadding),
+          padding: const EdgeInsets.symmetric(
+              horizontal: kDefaultPadding, vertical: kDefaultPadding / 2),
           child: ElevatedButton(
             onPressed: press,
             child: const Text(

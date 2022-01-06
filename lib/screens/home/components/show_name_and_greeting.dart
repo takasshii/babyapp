@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../homeModel.dart';
 
-class show_name_and_greeting extends StatelessWidget {
-  const show_name_and_greeting({Key? key, required this.user})
-      : super(key: key);
+class ShowNameAndGreeting extends StatelessWidget {
+  const ShowNameAndGreeting({Key? key, required this.user}) : super(key: key);
 
   final UserDetail user;
 

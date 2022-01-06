@@ -8,7 +8,8 @@ import 'package:babyapp/constants.dart';
 import 'package:babyapp/domain/user.dart';
 import 'package:babyapp/growthRecord/growthRecord/findGrowthRecord.dart';
 import 'package:babyapp/record/record/findRecord.dart';
-import 'package:babyapp/screens/home/components/appbar_with_icons.dart';
+import 'package:babyapp/screens/common_components/appbar_with_icons.dart';
+import 'package:babyapp/screens/common_components/bottom_logo.dart';
 import 'package:babyapp/screens/home/components/appointment_checker.dart';
 import 'package:babyapp/screens/home/components/home_main_button.dart';
 import 'package:babyapp/screens/home/homeModel.dart';
@@ -20,6 +21,8 @@ import 'package:provider/provider.dart';
 import 'components/show_name_and_greeting.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,15 +46,15 @@ class HomePage extends StatelessWidget {
         body: Consumer<UserModel>(builder: (context, model, child) {
           final UserDetail? user = model.userDetailList;
           if (user == null) {
-            return const Center(child: const CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           return SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: Column(
                 children: [
-                  show_name_and_greeting(user: user),
-                  appointment_checker(
+                  ShowNameAndGreeting(user: user),
+                  AppointmentChecker(
                     press: () {
                       Navigator.push(
                         context,
@@ -61,7 +64,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //1つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'Book Appointment',
                     description:
                         'Schedule an Appointment with our licenced professional.',
@@ -75,7 +78,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //2つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'Diary',
                     description:
                         "Record your diary and look-back on one's life with your baby.",
@@ -88,7 +91,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //3つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'Record',
                     description:
                         'Record your baby health and Make use of your baby medical check',
@@ -101,7 +104,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //4つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'GrowthRecord',
                     description:
                         "Record your baby's weight and height. You can check your baby growth easily.",
@@ -115,7 +118,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //5つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'Blog',
                     description:
                         "Search about information to live with your baby happily.",
@@ -128,7 +131,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //6つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'ToDo',
                     description:
                         'Check and add your medical schedule about your baby.',
@@ -141,7 +144,7 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   //7つ目ボタン
-                  home_main_button(
+                  HomeMainButton(
                     title: 'Email Us',
                     description:
                         'Send us an email and we will get back to you within 2 days.',
@@ -153,19 +156,7 @@ class HomePage extends StatelessWidget {
                       );
                     },
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 12, bottom: 24),
-                    child: const Center(
-                      child: const Text(
-                        '©︎mwith',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const BottomLogo(),
                   // ここに追加
                 ],
               ),
